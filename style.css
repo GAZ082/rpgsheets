@@ -1,0 +1,48 @@
+@font-face {
+  font-family: Cormorant;
+  src: url("assets/CormorantInfant-Medium.ttf");
+}
+
+@font-face {
+  font-family: OpenSans;
+  src: url("assets/OpenSans-Regular.ttf");
+}
+
+input {
+  border: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+
+#character {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
+  justify-content: center;
+}
+
+input {
+  font-family: OpenSans;
+  height: 2rem;
+  padding:0.1rem;
+}
+
+label {
+  font-size: 1rem;
+  font-family: Cormorant;
+  text-align: center;
+  border-top: 1px dashed lightgray;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+input[name="name"] {
+  font-size: 1.8rem;
+  font-family: Cormorant;
+}
