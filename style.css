@@ -16,16 +16,23 @@ input {
 
 
 #character {
+  /* columns and rows defined in template file */
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  grid-template-rows: auto auto auto auto;
-  justify-content: center;
+  /* justify-content: center; */
+}
+
+
+.section{
+  border: 1px dotted lightgray;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 input {
   font-family: OpenSans;
   height: 2rem;
-  padding:0.1rem;
+  padding:0;
 }
 
 label {
@@ -39,7 +46,7 @@ label {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 0.5rem 0 0.5rem;
+  margin: 0 0.2rem 0 0.2rem;
 }
 
 input[name="name"] {

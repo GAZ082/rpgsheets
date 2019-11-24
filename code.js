@@ -1,31 +1,29 @@
+"use strict";
+
 function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   let character = JSON.parse(localStorage.getItem("jsonData"));
   generateForm(character);
 }
 
-function generateForm(character) {
+function generateForm(template) {
   let sheet = document.getElementById("character")
-  for (const section in character.sheet) {
-    console.log(section);
-    let sectionDiv = document.createElement("div");
-    sectionDiv.id = section;
-    for (const field in character.sheet[section]) {
-      let f = character.sheet[section][field];
-      let container = document.createElement("div");
-      container.className = "field";
-      container.appendChild(createInput(field, f));
-      container.appendChild(createLabel(f));
-      sectionDiv.appendChild(container);
+  setupSheet(sheet, template.configuration);
+  for (const section in template.sheet) {
+    let sectionDiv = setupSection(section, template.sheet[section]["position"]);
+    for (const field in template.sheet[section]) {
+      if (field != "position") {
+        let f = template.sheet[section][field];
+        let container = document.createElement("div");
+        container.className = "field";
+        container.appendChild(createInput(field, f));
+        container.appendChild(createLabel(f));
+        sectionDiv.appendChild(container);
+      }
     }
     sheet.appendChild(sectionDiv);
   }
-  let button = document.createElement("input");
-  button.type = "submit";
-  button.name = "save";
-  button.text = "save";
-  button.onclick = saveData;
-  //  sheet.appendChild(button);
+
   console.log(sheet);
 }
 
@@ -34,8 +32,51 @@ function saveData() {
 
 }
 
+function setupSheet(sheet, config) {
+  console.log(config.rows);
+  let r = "";
+  let c = "";
+  let vr = 100 / config.rows;
+  let vc = 100 / config.columns;
+  for (let i = 0; i < config.rows; i++) {
+    //r += vr + "% ";
+    r += "auto ";
+  }
+  for (let i = 0; i < config.columns; i++) {
+    //c += vc + "% ";
+    c += "auto ";
+  }
+  sheet.style.gridTemplateRows = r;
+  sheet.style.gridTemplateColumns = c;
+  console.log(c);
+}
+
+function setupSection(name, position) {
+  let section = document.createElement("div");
+  let row = position.row.split("-");
+  let col = position.col.split("-");
+  section.title = name;
+  section.className = "section";
+  section.style.gridColumnStart = col[0];
+  section.style.gridColumnEnd = col[1];
+  section.style.gridRowStart = row[0];
+  section.style.gridRowEnd = row[1];
+  return section;
+}
+
+function addButton() {
+  let button = document.createElement("input");
+  button.type = "submit";
+  button.name = "save";
+  button.text = "save";
+  button.onclick = saveData;
+  //  sheet.appendChild(button);
+
+}
+
 function createInput(field, f) {
   let input = document.createElement("input");
+  input.value = f.value;
   input.name = field;
   input.type = f.type;
   input.size = f.size;
@@ -47,10 +88,8 @@ function createInput(field, f) {
 function createLabel(f) {
   let label = document.createElement("label");
   label.innerHTML = f.label;
+  label.style.textTransform = f.label_format;
   return label;
 }
-
-
-
 
 window.onload = init;
