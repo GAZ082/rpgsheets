@@ -7,108 +7,109 @@ let templates = {
           "col": "1-6",
           "label": "basics",
           "labelFormat": "uppercase",
-          "labelFont": "CormorantInfant-Medium.ttf",
-          "visible": true
+          "labelFont": "CormorantInfant-Medium.ttf"
         },
-        "name": {
-          "value": ["Ludwing Von Bethooven"],
-          "orientation": "col",
-          "type": "text",
-          "size": "32",
-          "label": "Name",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "species": {
-          "value": ["Human"],
-          "orientation": "col",
-          "type": "text",
-          "size": "12",
-          "label": "Species",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "class": {
-          "value": ["Musician"],
-          "orientation": "col",
-          "type": "text",
-          "size": "12",
-          "label": "Class",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "career": {
-          "value": [""],
-          "orientation": "col",
-          "type": "text",
-          "size": "12",
-          "label": "Career",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "career_level": {
-          "value": [""],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "Level",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "career_path": {
-          "value": [""],
-          "orientation": "col",
-          "type": "text",
-          "size": "32",
-          "label": "Career Path",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "status": {
-          "value": [""],
-          "orientation": "col",
-          "type": "text",
-          "size": "16",
-          "label": "Status",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "age": {
-          "value": [""],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "Age",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "height": {
-          "value": [""],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "Height",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "hair": {
-          "value": [""],
-          "orientation": "col",
-          "type": "text",
-          "size": "12",
-          "label": "Hair",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
-        "eyes": {
-          "value": [""],
-          "orientation": "col",
-          "type": "text",
-          "size": "12",
-          "label": "Eyes",
-          "labelPosition": "last",
-          "labelFormat": "capitalize"
-        },
+        "fields": {
+          "name": {
+            "value": ["Ludwing Von Bethooven"],
+            "orientation": "col",
+            "type": "text",
+            "size": "32",
+            "label": "Name",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "species": {
+            "value": ["Human"],
+            "orientation": "col",
+            "type": "text",
+            "size": "12",
+            "label": "Species",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "class": {
+            "value": ["Musician"],
+            "orientation": "col",
+            "type": "text",
+            "size": "12",
+            "label": "Class",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "career": {
+            "value": [""],
+            "orientation": "col",
+            "type": "text",
+            "size": "12",
+            "label": "Career",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "career_level": {
+            "value": [""],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "Level",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "career_path": {
+            "value": [""],
+            "orientation": "col",
+            "type": "text",
+            "size": "32",
+            "label": "Career Path",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "status": {
+            "value": [""],
+            "orientation": "col",
+            "type": "text",
+            "size": "16",
+            "label": "Status",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "age": {
+            "value": [""],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "Age",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "height": {
+            "value": [""],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "Height",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "hair": {
+            "value": [""],
+            "orientation": "col",
+            "type": "text",
+            "size": "12",
+            "label": "Hair",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+          "eyes": {
+            "value": [""],
+            "orientation": "col",
+            "type": "text",
+            "size": "12",
+            "label": "Eyes",
+            "labelPosition": "last",
+            "labelFormat": "capitalize"
+          },
+        }
       },
       "characteristics": {
         "configuration": {
@@ -117,97 +118,128 @@ let templates = {
           "label": "characteristics g/a/c",
           "labelFormat": "uppercase"
         },
-        "ws": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "ws",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
+        "fields": {
+          "ws": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "ws",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "bs": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "bs",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "s": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "s",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "t": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "t",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "i": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "i",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "ag": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "ag",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "dex": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "dex",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "int": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "int",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "wp": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "wp",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "fel": {
+            "value": [22, 5, "+"],
+            "orientation": "col",
+            "type": "number",
+            "size": "2",
+            "label": "fel",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          }
         },
-        "bs": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "bs",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
+      },
+      "fate": {
+        "configuration": {
+          "row": "2-3",
+          "col": "3-5",
+          "label": "fate",
+          "labelFormat": "uppercase",
+          "orientation": "column"
         },
-        "s": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "s",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
+        "fields": {
+          "fate": {
+            "value": [""],
+            "orientation": "column",
+            "type": "number",
+            "size": "2",
+            "label": "fate",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          },
+          "fortune": {
+            "value": [""],
+            "orientation": "column",
+            "type": "number",
+            "size": "2",
+            "label": "fortune",
+            "labelPosition": "first",
+            "labelFormat": "uppercase"
+          }
         },
-        "t": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "t",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        },
-        "i": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "i",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        },
-        "ag": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "ag",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        },
-        "dex": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "dex",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        },
-        "int": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "int",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        },
-        "wp": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "wp",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        },
-        "fel": {
-          "value": [22, 5, "+"],
-          "orientation": "col",
-          "type": "number",
-          "size": "2",
-          "label": "fel",
-          "labelPosition": "first",
-          "labelFormat": "uppercase"
-        }
-      }
+      },
     },
     "configuration": {
       "columns": "5",
@@ -221,6 +253,6 @@ let templates = {
         "version": "",
         "gamesystem": ""
       }
-    },
+    }
   }
 };

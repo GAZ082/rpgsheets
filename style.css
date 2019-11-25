@@ -21,19 +21,21 @@ body {
 
 
 .section {
-  border: 1px dotted lightgray;
+  /* border: 1px dotted lightgray; */
+  margin: 0 0.2rem 0 0.2rem;
 }
 
 .section>.title {
   border-bottom: 0.01rem solid black;
-  width: 80%;
   text-align: center;
   margin: auto;
+  font-weight: bold;
 }
 
 .group {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
 }
 
@@ -57,12 +59,13 @@ label {
 .result {
   font-size: 1rem;
   text-align: center;
+  font-weight: bold;
 }
 
 .field {
   display: flex;
-  flex-direction: column;
-  margin: 0 0.2rem 0 0.2rem;
+  justify-content: center;
+  margin: 0 0.1rem 0 0.1rem;
 }
 
 input[name="name"] {

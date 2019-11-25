@@ -13,15 +13,25 @@ function generateForm(template) {
     let sectionDiv = setupSection(section, template.sheet[section]["configuration"]);
     let group = document.createElement("div");
     group.className = "group";
+    if (template.sheet[section]["configuration"].orientation == "column") {
+      group.style.flexDirection = "column"
+    }
+
     sectionDiv.appendChild(group);
-    for (const field in template.sheet[section]) {
+
+    for (const field in template.sheet[section]["fields"]) {
       if (field != "configuration") {
-        let f = template.sheet[section][field];
+        let f = template.sheet[section]["fields"][field];
         let container = document.createElement("div");
         if (f["labelPosition"] == "first") {
           container.appendChild(createLabel(f));
         }
         container.className = "field";
+        if (f.orientation == "row") {
+          container.style.flexDirection = "row";
+        } else {
+          container.style.flexDirection = "column";
+        }
         let operator = f["value"][f["value"].length - 1]
         let total = 0;
         let valuesLenght = 0;
@@ -90,6 +100,7 @@ function setupSection(name, config) {
   section.style.gridColumnEnd = col[1];
   section.style.gridRowStart = row[0];
   section.style.gridRowEnd = row[1];
+  section.style.flexDirection = row[1];
   return section;
 }
 
