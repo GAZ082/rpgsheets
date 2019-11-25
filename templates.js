@@ -2,9 +2,13 @@ let templates = {
   "whfrpg4e": {
     "sheet": {
       "basics": {
-        "position": {
+        "configuration": {
           "row": "1-2",
-          "col": "1-6"
+          "col": "1-6",
+          "label": "basics",
+          "labelFormat": "uppercase",
+          "labelFont": "CormorantInfant-Medium.ttf",
+          "visible": true
         },
         "name": {
           "value": ["Ludwing Von Bethooven"],
@@ -73,7 +77,7 @@ let templates = {
           "value": [""],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "Age",
           "labelPosition": "last",
           "labelFormat": "capitalize"
@@ -82,7 +86,7 @@ let templates = {
           "value": [""],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "Height",
           "labelPosition": "last",
           "labelFormat": "capitalize"
@@ -107,112 +111,98 @@ let templates = {
         },
       },
       "characteristics": {
-        "position": {
+        "configuration": {
           "row": "2-3",
-          "col": "1-3"
-        },
-        "labels": {
-          "value": [, "Initial", "Advances", "Current"],
-          "orientation": "col",
-          "size": "3",
-          "labelPosition": "first",
+          "col": "1-3",
+          "label": "characteristics g/a/c",
           "labelFormat": "uppercase"
         },
         "ws": {
           "value": [22, 5, 0],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "ws",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "bs": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "bs",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "s": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "s",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "t": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "t",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "i": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "i",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "ag": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "ag",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "dex": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "dex",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "int": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "int",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "wp": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "wp",
           "labelPosition": "first",
           "labelFormat": "uppercase"
-        }
-        ,
+        },
         "fel": {
           "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
-          "size": "3",
+          "size": "2",
           "label": "fel",
           "labelPosition": "first",
           "labelFormat": "uppercase"

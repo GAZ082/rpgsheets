@@ -8,9 +8,9 @@
   src: url("assets/OpenSans-Regular.ttf");
 }
 
-body{
-  margin:0;
-  padding:0;
+body {
+  margin: 0;
+  padding: 0;
 }
 
 #character {
@@ -20,8 +20,18 @@ body{
 }
 
 
-.section{
+.section {
   border: 1px dotted lightgray;
+}
+
+.section>.title {
+  border-bottom: 0.01rem solid black;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+.group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -34,7 +44,7 @@ input {
   text-align: center;
   font-family: OpenSans;
   height: 2rem;
-  padding:0;
+  padding: 0;
   border-bottom: 1px dashed lightgray;
 }
 
@@ -53,4 +63,15 @@ label {
 input[name="name"] {
   font-size: 1.8rem;
   font-family: Cormorant;
+}
+
+/* Remove input number spinners */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }

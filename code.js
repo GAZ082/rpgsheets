@@ -10,9 +10,12 @@ function generateForm(template) {
   let sheet = document.getElementById("character")
   setupSheet(sheet, template.configuration);
   for (const section in template.sheet) {
-    let sectionDiv = setupSection(section, template.sheet[section]["position"]);
+    let sectionDiv = setupSection(section, template.sheet[section]["configuration"]);
+    let group = document.createElement("div");
+    group.className = "group";
+    sectionDiv.appendChild(group);
     for (const field in template.sheet[section]) {
-      if (field != "position") {
+      if (field != "configuration") {
         let f = template.sheet[section][field];
         let container = document.createElement("div");
         if (f["labelPosition"] == "first") {
@@ -20,29 +23,25 @@ function generateForm(template) {
         }
         container.className = "field";
         for (let v = 0; v < f["value"].length; v++) {
-          console.log(f["value"]);
           container.appendChild(createInput(field, f, f["value"][v]));
         }
         if (f["labelPosition"] == "last") {
           container.appendChild(createLabel(f));
         }
-
-        sectionDiv.appendChild(container);
+        group.appendChild(container);
       }
     }
     sheet.appendChild(sectionDiv);
   }
-
-  console.log(sheet);
 }
 
 
-function saveData() {
+function pepe() {
+  alert('click');
 
 }
 
 function setupSheet(sheet, config) {
-  console.log(config.rows);
   let r = "";
   let c = "";
   let vr = 100 / config.rows;
@@ -57,13 +56,19 @@ function setupSheet(sheet, config) {
   }
   sheet.style.gridTemplateRows = r;
   sheet.style.gridTemplateColumns = c;
-  console.log(c);
 }
 
-function setupSection(name, position) {
+function setupSection(name, config) {
   let section = document.createElement("div");
-  let row = position.row.split("-");
-  let col = position.col.split("-");
+  let title = document.createElement("div");
+  title.className = "title";
+  title.title = name;
+  title.innerHTML = config.label;
+  title.style.textTransform = config.labelFormat;
+  title.style.fontFamily = config.labelFont;
+  section.appendChild(title);
+  let row = config.row.split("-");
+  let col = config.col.split("-");
   section.title = name;
   section.className = "section";
   section.style.gridColumnStart = col[0];
@@ -72,6 +77,7 @@ function setupSection(name, position) {
   section.style.gridRowEnd = row[1];
   return section;
 }
+
 
 function addButton() {
   let button = document.createElement("input");
