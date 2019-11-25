@@ -118,7 +118,7 @@ let templates = {
           "labelFormat": "uppercase"
         },
         "ws": {
-          "value": [22, 5, 0],
+          "value": [22, 5, "+"],
           "orientation": "col",
           "type": "number",
           "size": "2",

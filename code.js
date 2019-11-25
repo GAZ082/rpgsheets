@@ -22,8 +22,23 @@ function generateForm(template) {
           container.appendChild(createLabel(f));
         }
         container.className = "field";
-        for (let v = 0; v < f["value"].length; v++) {
+        let operator = f["value"][f["value"].length - 1]
+        let total = 0;
+        let valuesLenght = 0;
+        if (operator == "+") {
+          valuesLenght = f["value"].length - 1
+          for (let v = 0; v < valuesLenght; v++) {
+            total += f["value"][v]
+          }
+        } else {
+          valuesLenght = f["value"].length
+          total = false
+        }
+        for (let v = 0; v < valuesLenght; v++) {
           container.appendChild(createInput(field, f, f["value"][v]));
+        }
+        if (total) {
+          container.appendChild(createLabelResult(total));
         }
         if (f["labelPosition"] == "last") {
           container.appendChild(createLabel(f));
@@ -106,5 +121,13 @@ function createLabel(f) {
   label.style.textTransform = f.labelFormat;
   return label;
 }
+
+function createLabelResult(value) {
+  let label = document.createElement("label");
+  label.className = "result";
+  label.innerHTML = value;
+  return label;
+}
+
 
 window.onload = init;
