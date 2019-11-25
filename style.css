@@ -8,12 +8,10 @@
   src: url("assets/OpenSans-Regular.ttf");
 }
 
-input {
-  border: 0;
-  font-size: 1.2rem;
-  text-align: center;
+body{
+  margin:0;
+  padding:0;
 }
-
 
 #character {
   /* columns and rows defined in template file */
@@ -26,26 +24,29 @@ input {
   border: 1px dotted lightgray;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
+
 input {
+  border: 0;
+  font-size: 1.2rem;
+  text-align: center;
   font-family: OpenSans;
   height: 2rem;
   padding:0;
+  border-bottom: 1px dashed lightgray;
 }
 
 label {
   font-size: 1rem;
   font-family: Cormorant;
   text-align: center;
-  border-top: 1px dashed lightgray;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 0 0.2rem 0 0.2rem;
 }
 

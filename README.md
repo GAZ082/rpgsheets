@@ -14,3 +14,11 @@
 
 The sheet must be divided in rows and columns to make a grid for positioning the section. Each section will then have to be placed in those divisions. Value must be >0.
 
+## Parameters
+
+* Orientation
+  * Row
+  * Col
+* labelPosition
+  * first
+  * last

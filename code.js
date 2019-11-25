@@ -15,9 +15,18 @@ function generateForm(template) {
       if (field != "position") {
         let f = template.sheet[section][field];
         let container = document.createElement("div");
+        if (f["labelPosition"] == "first") {
+          container.appendChild(createLabel(f));
+        }
         container.className = "field";
-        container.appendChild(createInput(field, f));
-        container.appendChild(createLabel(f));
+        for (let v = 0; v < f["value"].length; v++) {
+          console.log(f["value"]);
+          container.appendChild(createInput(field, f, f["value"][v]));
+        }
+        if (f["labelPosition"] == "last") {
+          container.appendChild(createLabel(f));
+        }
+
         sectionDiv.appendChild(container);
       }
     }
@@ -74,9 +83,9 @@ function addButton() {
 
 }
 
-function createInput(field, f) {
+function createInput(field, f, value) {
   let input = document.createElement("input");
-  input.value = f.value;
+  input.value = value;
   input.name = field;
   input.type = f.type;
   input.size = f.size;
@@ -88,7 +97,7 @@ function createInput(field, f) {
 function createLabel(f) {
   let label = document.createElement("label");
   label.innerHTML = f.label;
-  label.style.textTransform = f.label_format;
+  label.style.textTransform = f.labelFormat;
   return label;
 }
 

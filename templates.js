@@ -8,80 +8,102 @@ let templates = {
         },
         "name": {
           "value": ["Ludwing Von Bethooven"],
+          "orientation": "col",
           "type": "text",
           "size": "32",
           "label": "Name",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "species": {
           "value": ["Human"],
+          "orientation": "col",
           "type": "text",
           "size": "12",
           "label": "Species",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "class": {
           "value": ["Musician"],
+          "orientation": "col",
           "type": "text",
           "size": "12",
           "label": "Class",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "career": {
           "value": [""],
+          "orientation": "col",
           "type": "text",
           "size": "12",
           "label": "Career",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "career_level": {
           "value": [""],
+          "orientation": "col",
           "type": "number",
           "size": "2",
           "label": "Level",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "career_path": {
           "value": [""],
+          "orientation": "col",
           "type": "text",
           "size": "32",
           "label": "Career Path",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "status": {
           "value": [""],
+          "orientation": "col",
           "type": "text",
           "size": "16",
           "label": "Status",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "age": {
           "value": [""],
+          "orientation": "col",
           "type": "number",
           "size": "3",
           "label": "Age",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "height": {
           "value": [""],
+          "orientation": "col",
           "type": "number",
           "size": "3",
           "label": "Height",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "hair": {
           "value": [""],
+          "orientation": "col",
           "type": "text",
           "size": "12",
           "label": "Hair",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
         "eyes": {
           "value": [""],
+          "orientation": "col",
           "type": "text",
           "size": "12",
           "label": "Eyes",
-          "label_format": "capitalize"
+          "labelPosition": "last",
+          "labelFormat": "capitalize"
         },
       },
       "characteristics": {
@@ -89,90 +111,111 @@ let templates = {
           "row": "2-3",
           "col": "1-3"
         },
+        "labels": {
+          "value": [, "Initial", "Advances", "Current"],
+          "orientation": "col",
+          "size": "3",
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
+        },
         "ws": {
-          "value": [""],
+          "value": [22, 5, 0],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "ws",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "bs": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "bs",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "s": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "s",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "t": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "t",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "i": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "i",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "ag": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "ag",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "dex": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "dex",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "int": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "int",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "wp": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "wp",
-          "label_format": "uppercase"
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
         ,
         "fel": {
-          "value": [""],
+          "value": [22, 5, "+"],
+          "orientation": "col",
           "type": "number",
-          "size": "2",
+          "size": "3",
           "label": "fel",
-          "label_format": "uppercase",
-          "another": {
-            "value": [""],
-            "type": "number",
-            "size": "2",
-            "label": "fel",
-          }
+          "labelPosition": "first",
+          "labelFormat": "uppercase"
         }
       }
     },
