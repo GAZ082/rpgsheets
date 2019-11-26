@@ -10,7 +10,8 @@ let templates = {
           "labelFont": "CormorantInfant-Medium.ttf"
         },
         "fields": {
-          "name": {
+          "field": {
+            "name": "name",
             "value": [
               "Ludwing Von Bethooven"
             ],
@@ -18,12 +19,13 @@ let templates = {
             "type": "text",
             "size": 32,
             "label": {
-              "value": "name",
               "position": "last",
+              "value": "name",
               "format": "capitalize"
             }
           },
-          "species": {
+          "field": {
+            "name": "species",
             "value": [
               "Human"
             ],
@@ -31,12 +33,13 @@ let templates = {
             "type": "text",
             "size": 12,
             "label": {
-              "value": "species",
               "position": "last",
+              "value": "species",
               "format": "capitalize"
             }
           },
-          "class": {
+          "field": {
+            "name": "class",
             "value": [
               "Courtier"
             ],
@@ -44,35 +47,38 @@ let templates = {
             "type": "text",
             "size": 12,
             "label": {
+              "positio": "last",
               "value": "class",
-              "position": "last",
               "format": "capitalize"
             }
           },
-          "career": {
+          "field": {
+            "name": "career",
             "value": ["Muscician"
             ],
             "orientation": "col",
             "type": "text",
             "size": 12,
             "label": {
-              "value": "career",
               "position": "last",
+              "value": "career",
               "format": "capitalize"
             }
           },
-          "career_level": {
+          "field": {
+            "name": "level",
             "value": [99],
             "orientation": "col",
             "type": "number",
             "size": 2,
             "label": {
-              "value": "level",
               "position": "last",
+              "value": "level",
               "format": "capitalize"
             }
           },
-          "career_path": {
+          "field": {
+            "name": "careerPath",
             "value": [
               ""
             ],
@@ -80,12 +86,13 @@ let templates = {
             "type": "text",
             "size": 32,
             "label": {
-              "value": "career path",
               "position": "last",
+              "value": "career path",
               "format": "capitalize"
             }
           },
-          "status": {
+          "field": {
+            "name": "status",
             "value": [
               ""
             ],
@@ -93,12 +100,13 @@ let templates = {
             "type": "text",
             "size": 16,
             "label": {
+              "position": "last",
               "value": "status",
-              "position": "last",
               "format": "capitalize"
             }
           },
-          "age": {
+          "field": {
+            "name": "age",
             "value": [
               ""
             ],
@@ -106,12 +114,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "last",
               "value": "age",
-              "position": "last",
               "format": "capitalize"
             }
           },
-          "height": {
+          "field": {
+            "name": "height",
             "value": [
               ""
             ],
@@ -119,12 +128,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "last",
               "value": "height",
-              "position": "last",
               "format": "capitalize"
             }
           },
-          "hair": {
+          "field": {
+            "name": "hair",
             "value": [
               ""
             ],
@@ -132,12 +142,13 @@ let templates = {
             "type": "text",
             "size": 12,
             "label": {
+              "position": "last",
               "value": "hair",
-              "position": "last",
               "format": "capitalize"
             }
           },
-          "eyes": {
+          "field": {
+            "name": "eyes",
             "value": [
               ""
             ],
@@ -145,8 +156,8 @@ let templates = {
             "type": "text",
             "size": 12,
             "label": {
-              "value": "eyes",
               "position": "last",
+              "value": "eyes",
               "format": "capitalize"
             }
           }
@@ -160,7 +171,8 @@ let templates = {
           "labelFormat": "uppercase"
         },
         "fields": {
-          "ws": {
+          "field": {
+            "name": "ws",
             "value": [
               22,
               5,
@@ -170,12 +182,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "ws",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "bs": {
+          "field": {
+            "name": "bs",
             "value": [
               22,
               5,
@@ -185,12 +198,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "bs",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "s": {
+          "field": {
+            "name": "s",
             "value": [
               22,
               5,
@@ -200,12 +214,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "s",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "t": {
+          "field": {
+            "name": "t",
             "value": [
               22,
               5,
@@ -215,12 +230,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "t",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "i": {
+          "field": {
+            "name": "i",
             "value": [
               22,
               5,
@@ -230,12 +246,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "i",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "ag": {
+          "field": {
+            "name": "ag",
             "value": [
               22,
               5,
@@ -245,12 +262,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "ag",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "dex": {
+          "field": {
+            "name": "dex",
             "value": [
               22,
               5,
@@ -260,12 +278,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "dex",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "int": {
+          "field": {
+            "name": "int",
             "value": [
               22,
               5,
@@ -275,12 +294,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "int",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "wp": {
+          "field": {
+            "name": "wp",
             "value": [
               22,
               5,
@@ -290,12 +310,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
+              "position": "first",
               "value": "wp",
-              "position": "first",
               "format": "capitalize"
             }
           },
-          "fel": {
+          "field": {
+            "name": "fel",
             "value": [
               22,
               5,
@@ -305,8 +326,8 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
-              "value": "fel",
               "position": "first",
+              "value": "fel",
               "format": "capitalize"
             }
           }
@@ -320,27 +341,29 @@ let templates = {
           "labelFormat": "uppercase",
         },
         "fields": {
-          "fate": {
+          "field": {
+            "name": "fate",
             "value": [
               ""
             ],
             "type": "number",
             "size": 2,
             "label": {
-              "value": "fate",
               "position": "first",
+              "value": "fate",
               "format": "capitalize"
             }
           },
-          "fortune": {
+          "field": {
+            "name": "fortune",
             "value": [
               ""
             ],
             "type": "number",
             "size": 2,
             "label": {
-              "value": "fortune",
               "position": "first",
+              "value": "fortune",
               "format": "capitalize",
               "align": "left"
             }
@@ -356,7 +379,8 @@ let templates = {
           "labelFont": "CormorantInfant-Medium.ttf"
         },
         "fields": {
-          "resilience": {
+          "field": {
+            "name": "resilience",
             "value": [
               ""
             ],
@@ -364,13 +388,14 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
-              "value": "resilience",
               "position": "first",
+              "value": "resilience",
               "format": "capitalize",
               "size": 0.5
             }
           },
-          "resolve": {
+          "field": {
+            "name": "resolve",
             "value": [
               ""
             ],
@@ -378,12 +403,13 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
-              "value": "resolve",
               "position": "first",
+              "value": "resolve",
               "format": "capitalize"
             }
           },
-          "motivation": {
+          "field": {
+            "name": "motivation",
             "value": [
               ""
             ],
@@ -391,8 +417,8 @@ let templates = {
             "type": "number",
             "size": 2,
             "label": {
-              "value": "motivation",
               "position": "first",
+              "value": "motivation",
               "format": "capitalize"
             }
           }
@@ -407,7 +433,8 @@ let templates = {
           "labelFont": "CormorantInfant-Medium.ttf"
         },
         "fields": {
-          "current": {
+          "field": {
+            "name": "current",
             "value": [
               ""
             ],
@@ -415,13 +442,14 @@ let templates = {
             "type": "number",
             "size": 3,
             "label": {
-              "value": "current",
               "position": "first",
+              "value": "current",
               "format": "capitalize",
               "size": 0.5
             }
           },
-          "spent": {
+          "field": {
+            "name": "spent",
             "value": [
               ""
             ],
@@ -429,12 +457,13 @@ let templates = {
             "type": "number",
             "size": 3,
             "label": {
-              "value": "spent",
               "position": "first",
+              "value": "spent",
               "format": "capitalize"
             }
           },
-          "total": {
+          "field": {
+            "name": "total",
             "value": [
               ""
             ],
@@ -442,8 +471,8 @@ let templates = {
             "type": "number",
             "size": 3,
             "label": {
-              "value": "total",
               "position": "first",
+              "value": "total",
               "format": "capitalize"
             }
           }
@@ -458,45 +487,72 @@ let templates = {
           "labelFont": "CormorantInfant-Medium.ttf"
         },
         "fields": {
-          "movement": {
+          "field": {
+            "name": "movement",
             "value": [
               ""
             ],
             "type": "number",
             "size": 3,
             "label": {
-              "value": "movement",
               "position": "first",
+              "value": "movement",
               "format": "capitalize",
               "size": 0.5
             }
           },
-          "walk": {
+          "field": {
+            "name": "walk",
             "value": [
               ""
             ],
             "type": "number",
             "size": 3,
             "label": {
-              "value": "walk",
               "position": "first",
+              "value": "walk",
               "format": "capitalize"
             }
           },
-          "run": {
+          "field": {
+            "name": "name",
             "value": [
               ""
             ],
-            "type": "number",
+            "type": "run",
             "size": 3,
             "label": {
-              "value": "run",
               "position": "first",
+              "value": "run",
               "format": "capitalize"
             }
           }
         }
-      },
+      }, "basicSkills": {
+        "configuration": {
+          "row": "3-3",
+          "col": "1-10",
+          "label": "Basic Skills",
+          "labelFormat": "uppercase",
+          "labelFont": "CormorantInfant-Medium.ttf"
+        },
+        "fields": {
+          "field": {
+            "name": "movement2",
+            "value": [
+              ""
+            ],
+            "type": "number",
+            "size": 3,
+            "label": {
+              "position": "first",
+              "value": "movement",
+              "format": "capitalize",
+              "size": 0.5
+            }
+          },
+        }
+      }
     },
     "configuration": {
       "columns": 20,

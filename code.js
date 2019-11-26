@@ -3,7 +3,8 @@
 function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   let character = JSON.parse(localStorage.getItem("jsonData"));
-  generateForm(character);
+  // generateForm(character);
+  generateNumberTable(character);
 }
 
 function generateForm(template) {
@@ -56,6 +57,18 @@ function generateForm(template) {
     }
     sheet.appendChild(sectionDiv);
   }
+}
+
+function generateNumberTable(template) {
+
+  for (const section in template.sheet) {
+    for (const field in template.sheet[section]) {
+      // for (const value in template.sheet[section][field]) {
+      console.log(template.sheet[section].fields.field);
+      // }
+    }
+  }
+
 }
 
 
