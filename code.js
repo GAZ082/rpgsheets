@@ -8,18 +8,30 @@ function init() {
 }
 
 function generateForm(sheet) {
-  let root = document.getElementById("character")
-  // setupSheet(sheet, sheet.sheet.configuration);
-  console.log(sheet);
-  // let section = newSection(sheet.section[0]);
-  let field = sheet.section[0].group[0].field[0]
-  // section.appendChild(newField(field));
-  root.appendChild(newField(field));
+  let root = newSheet(sheet);
+  // console.log(sheet);
+
+  sheet.section.forEach(section => {
+    let nSection = newSection(section);
+    section.field.forEach(field => {
+      let nField = newField(field)
+      nSection.appendChild(nField);
+    });
+    root.appendChild(nSection);
+  });
+
+  // for (const son in sheet) {
+  //   let newSection = newSection(sheet.section);
+  //   const element = sheet[section];
+  // }
 
 
 
+  // let field = sheet.section[0].field[0]
+  // // section.appendChild(newField(field));
+  // root.appendChild(newField(field));
 
-  // let group = sheet.section[0].group[0]
+
 
   // createInput(field, group)
 
@@ -40,7 +52,8 @@ function pepe() {
   alert('click');
 }
 
-function setupSheet(sheet, config) {
+function newSheet(config) {
+  let sheet = document.getElementById("character")
   let r = "";
   let c = "";
   let vr = 100 / config.rows;
@@ -56,6 +69,7 @@ function setupSheet(sheet, config) {
   }
   sheet.style.gridTemplateRows = r;
   sheet.style.gridTemplateColumns = c;
+  return sheet;
 }
 
 function newSection(config) {
@@ -79,7 +93,6 @@ function newSection(config) {
   return section;
 }
 
-
 function addButton() {
   let button = document.createElement("input");
   button.type = "submit";
@@ -93,30 +106,38 @@ function addButton() {
 function newField(config) {
   let group = document.createElement("div");
   group.className = "group";
-  group.style.flexDirection = "column"
+  group.style.flexDirection = config.orientation;
+  if (config.label.position == "first") {
+    group.appendChild(newLabel(config.label))
+  }
   config.value.forEach(element => {
     let field = document.createElement("input");
     field.value = element;
     field.name = config.name;
     field.type = config.type;
+    field.style.flexGrow = config.size;
+    // field.size = config.size;
     field.size = config.size;
     field.style.width = config.size + "rem";
     field.maxLength = config.size;
     group.appendChild(field);
   });
+  if (config.label.position == "last") {
+    group.appendChild(newLabel(config.label))
+  }
   return group;
 }
 
-function createLabel(f) {
+function newLabel(config) {
   let label = document.createElement("label");
-  label.innerHTML = f.value;
-  label.style.textTransform = f.format;
-  label.style.textAlign = f.align;
-  label.style.size = f.size + 'rem';
+  label.innerHTML = config.value;
+  label.style.textTransform = config.format;
+  label.style.flexGrow = config.size;
+  // label.style.width = config.size + 'rem';
   return label;
 }
 
-function createLabelResult(value) {
+function newLabelResult(value) {
   let label = document.createElement("label");
   label.className = "result";
   label.innerHTML = value;

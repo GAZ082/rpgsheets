@@ -19,6 +19,8 @@ body {
   margin: 0.2rem;
   border-radius: 0.2rem;
   padding: 0.1rem;
+  flex-wrap: nowrap;
+  flex-flow: row wrap;
 }
 
 .section>.title {
@@ -26,15 +28,14 @@ body {
   text-align: center;
   margin: auto;
   font-weight: bold;
-  font-size: 1rem;
+  color: red;
 }
 
 .group {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-
+  flex-wrap: nowrap;
+  align-items: center;
+  border: 1px solid black;
 }
 
 
