@@ -1,13 +1,3 @@
-@font-face {
-  font-family: Cormorant;
-  src: url("assets/CormorantInfant-Medium.ttf");
-}
-
-@font-face {
-  font-family: OpenSans;
-  src: url("assets/OpenSans-Regular.ttf");
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -48,19 +38,16 @@ input {
   border: 0;
   font-size: 1rem;
   text-align: center;
-  font-family: OpenSans;
   border-bottom: 1px dashed lightgray;
 }
 
 label {
-  font-family: Cormorant;
   text-align: center;
 }
 
 .result {
   text-align: center;
   font-weight: bold;
-  font-family: Cormorant;
 }
 
 .field {
@@ -74,7 +61,6 @@ label {
 
 input[name="name"] {
   font-size: 1.4rem;
-  font-family: Cormorant;
 }
 
 /* Remove input number spinners */
