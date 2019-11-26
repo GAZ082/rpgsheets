@@ -3,7 +3,7 @@
 function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   let character = JSON.parse(localStorage.getItem("jsonData"));
-  // generateForm(character);
+  generateForm(character);
   generateNumberTable(character);
 }
 
