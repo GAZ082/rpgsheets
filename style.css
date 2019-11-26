@@ -1,3 +1,7 @@
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -22,7 +26,7 @@ body {
   text-align: center;
   margin: auto;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .group {
@@ -55,8 +59,6 @@ label {
   align-items: center;
   justify-content: flex-end;
   margin: 0 0.2rem 0 0.2rem;
-
-
 }
 
 input[name="name"] {

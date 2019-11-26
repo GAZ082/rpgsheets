@@ -3,78 +3,41 @@
 function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   let character = JSON.parse(localStorage.getItem("jsonData"));
-  // generateForm(character);
-  generateNumberTable(character);
+  generateForm(character.sheet);
+  //generateNumberTable(character);
 }
 
-function generateForm(template) {
-  let sheet = document.getElementById("character")
-  setupSheet(sheet, template.configuration);
-  for (const section in template.sheet) {
-    let sectionDiv = setupSection(section, template.sheet[section].configuration);
-    let group = document.createElement("div");
-    group.className = "group";
-    if (template.sheet[section].configuration.orientation == "column") {
-      group.style.flexDirection = "column"
-    }
-    sectionDiv.appendChild(group);
-    for (const field in template.sheet[section].fields) {
-      if (field != "configuration") {
-        let f = template.sheet[section].fields[field];
-        let container = document.createElement("div");
-        if (f.label.position == "first") {
-          container.appendChild(createLabel(f.label));
-        }
-        container.className = "field";
-        if (f.orientation == "row") {
-          container.style.flexDirection = "row";
-        } else {
-          container.style.flexDirection = "column";
-        }
-        let operator = f.value[f.value.length - 1]
-        let total = 0;
-        let valuesLenght = 0;
-        if (operator == "+") {
-          valuesLenght = f.value.length - 1
-          for (let v = 0; v < valuesLenght; v++) {
-            total += f.value[v]
-          }
-        } else {
-          valuesLenght = f.value.length
-          total = false
-        }
-        for (let v = 0; v < valuesLenght; v++) {
-          container.appendChild(createInput(field, f, f.value[v]));
-        }
-        if (total) {
-          container.appendChild(createLabelResult(total));
-        }
-        if (f.label.position == "last") {
-          container.appendChild(createLabel(f.label));
-        }
-        group.appendChild(container);
-      }
-    }
-    sheet.appendChild(sectionDiv);
-  }
+function generateForm(sheet) {
+  let root = document.getElementById("character")
+  // setupSheet(sheet, sheet.sheet.configuration);
+  console.log(sheet);
+  // let section = newSection(sheet.section[0]);
+  let field = sheet.section[0].group[0].field[0]
+  // section.appendChild(newField(field));
+  root.appendChild(newField(field));
+
+
+
+
+  // let group = sheet.section[0].group[0]
+
+  // createInput(field, group)
+
 }
 
 function generateNumberTable(template) {
-
   for (const section in template.sheet) {
     for (const field in template.sheet[section]) {
       // for (const value in template.sheet[section][field]) {
-      console.log(template.sheet[section].fields.field);
+      console.log(template.sheet[section].group.field);
       // }
     }
   }
 
 }
 
-
 function pepe() {
   alert('click');
-
 }
 
 function setupSheet(sheet, config) {
@@ -82,31 +45,31 @@ function setupSheet(sheet, config) {
   let c = "";
   let vr = 100 / config.rows;
   let vc = 100 / config.columns;
-  for (let i = 0; i < config.rows; i++) {
-    // r += vr + "% ";
-    //r += "5% ";
-    r += "auto ";
-  }
+  // for (let i = 0; i < config.rows; i++) {
+  //   // r += vr + "% ";
+  //   //r += "5% ";
+  //   r += "auto ";
+  // }
   for (let i = 0; i < config.columns; i++) {
-    c += vc + "% ";
+    c += vc + "vw ";
     //c += "auto ";
   }
   sheet.style.gridTemplateRows = r;
   sheet.style.gridTemplateColumns = c;
 }
 
-function setupSection(name, config) {
+function newSection(config) {
   let section = document.createElement("div");
   let title = document.createElement("div");
   title.className = "title";
-  title.title = name;
-  title.innerHTML = config.label;
-  title.style.textTransform = config.labelFormat;
-  title.style.fontFamily = config.labelFont;
+  title.title = config.label.value;
+  title.innerHTML = config.label.value;
+  title.style.textTransform = config.label.format;
+  title.style.fontFamily = config.label.font;
   section.appendChild(title);
   let row = config.row.split("-");
   let col = config.col.split("-");
-  section.title = name;
+  section.title = config.name;
   section.className = "section";
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
@@ -127,15 +90,21 @@ function addButton() {
 
 }
 
-function createInput(field, f, value) {
-  let input = document.createElement("input");
-  input.value = value;
-  input.name = field;
-  input.type = f.type;
-  input.size = f.size;
-  input.style.width = f.size + "rem";
-  input.maxLength = f.size;
-  return input;
+function newField(config) {
+  let group = document.createElement("div");
+  group.className = "group";
+  group.style.flexDirection = "column"
+  config.value.forEach(element => {
+    let field = document.createElement("input");
+    field.value = element;
+    field.name = config.name;
+    field.type = config.type;
+    field.size = config.size;
+    field.style.width = config.size + "rem";
+    field.maxLength = config.size;
+    group.appendChild(field);
+  });
+  return group;
 }
 
 function createLabel(f) {
