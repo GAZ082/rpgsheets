@@ -9,6 +9,7 @@ function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   app.template = JSON.parse(localStorage.getItem("jsonData"));
   app.crunch = generateCrunch(app.template.sheet);
+  console.log(app.crunch);
   doSingleCalculations(app.crunch);
   generateForm(app.template.sheet);
 }
@@ -17,21 +18,29 @@ function generateForm(sheet) {
   let root = newSheet(sheet);
   sheet.section.forEach(section => {
     let nSection = newSection(section);
-    section.field.forEach(field => {
-      let nField = newField(field)
-      nSection.appendChild(nField);
+    section.group.forEach(group => {
+      let nGroup = newGroup(group);
+      group.field.forEach(field => {
+        let nField = newField(field);
+        nField.flexDirection = group.orientation;
+        nGroup.appendChild(nField);
+      });
+      nSection.appendChild(nGroup);
     });
     root.appendChild(nSection);
   });
+
 }
 
 function generateCrunch(template) {
   let data = {};
   template.section.forEach(section => {
-    section.field.forEach(field => {
-      if (field.type == "number") {
-        data[field.name] = field.value;
-      }
+    section.group.forEach(group => {
+      group.field.forEach(field => {
+        if (field.type == "number") {
+          data[field.name] = field.value;
+        }
+      });
     });
   });
   return data
@@ -98,6 +107,13 @@ function newSection(config) {
   return section;
 }
 
+function newGroup(config) {
+  let group = document.createElement("div");
+  group.style.flexDirection = config.orientation;
+  group.className = "group";
+  return group;
+}
+
 function addButton() {
   let button = document.createElement("input");
   button.type = "submit";
@@ -105,15 +121,14 @@ function addButton() {
   button.text = "save";
   button.onclick = saveData;
   //  sheet.appendChild(button);
-
 }
 
 function newField(config) {
-  let group = document.createElement("div");
-  group.className = "group";
-  group.style.flexDirection = config.orientation;
+  let fieldGroup = document.createElement("div");
+  fieldGroup.className = "fieldGroup";
+  fieldGroup.style.flexDirection = config.orientation;
   if (config.label.position == "first") {
-    group.appendChild(newLabel(config.label))
+    fieldGroup.appendChild(newLabel(config.label))
   }
   config.value.forEach(element => {
     let field = document.createElement("input");
@@ -126,12 +141,12 @@ function newField(config) {
     field.style.width = config.size + "rem";
     field.maxLength = config.size;
     field.className = "field";
-    group.appendChild(field);
+    fieldGroup.appendChild(field);
   });
   if (config.label.position == "last") {
-    group.appendChild(newLabel(config.label))
+    fieldGroup.appendChild(newLabel(config.label))
   }
-  return group;
+  return fieldGroup;
 }
 
 function newLabel(config) {

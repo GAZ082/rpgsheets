@@ -19,8 +19,8 @@ body {
   margin: 0.2rem;
   border-radius: 0.2rem;
   padding: 0.1rem;
-  flex-wrap: nowrap;
-  flex-flow: row wrap;
+  /* flex-wrap: nowrap; */
+  /* flex-flow: row wrap; */
 }
 
 .section>.title {
@@ -31,12 +31,19 @@ body {
   color: red;
 }
 
-.group {
+.fieldGroup {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  border: 1px solid black;
+  flex-direction: column;
 }
+
+.group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 input {
@@ -56,9 +63,6 @@ label {
 }
 
 .field {
-  /* display: flex;
-  align-items: center;
-  justify-content: flex-end; */
   margin: 0 0.2rem 0 0.2rem;
 }
 
