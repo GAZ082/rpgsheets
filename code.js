@@ -1,16 +1,20 @@
 "use strict";
 
+
+let app = {};
+app.template = {}
+app.crunch = []
+
 function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
-  let character = JSON.parse(localStorage.getItem("jsonData"));
-  generateForm(character.sheet);
-  //generateNumberTable(character);
+  app.template = JSON.parse(localStorage.getItem("jsonData"));
+  app.crunch = generateCrunch(app.template.sheet);
+  doSingleCalculations(app.crunch);
+  generateForm(app.template.sheet);
 }
 
 function generateForm(sheet) {
   let root = newSheet(sheet);
-  // console.log(sheet);
-
   sheet.section.forEach(section => {
     let nSection = newSection(section);
     section.field.forEach(field => {
@@ -19,34 +23,45 @@ function generateForm(sheet) {
     });
     root.appendChild(nSection);
   });
-
-  // for (const son in sheet) {
-  //   let newSection = newSection(sheet.section);
-  //   const element = sheet[section];
-  // }
-
-
-
-  // let field = sheet.section[0].field[0]
-  // // section.appendChild(newField(field));
-  // root.appendChild(newField(field));
-
-
-
-  // createInput(field, group)
-
 }
 
-function generateNumberTable(template) {
-  for (const section in template.sheet) {
-    for (const field in template.sheet[section]) {
-      // for (const value in template.sheet[section][field]) {
-      console.log(template.sheet[section].group.field);
-      // }
-    }
+function generateCrunch(template) {
+  let data = {};
+  template.section.forEach(section => {
+    section.field.forEach(field => {
+      if (field.type == "number") {
+        data[field.name] = field.value;
+      }
+    });
+  });
+  return data
+}
+
+function doSingleCalculations(database) {
+  for (const i in database) {
+    let c = 0;
+    database[i].forEach(element => {
+      if (typeof (element) == "string") {
+        database[i][c] = doSingleCalc(element, database);
+      };
+      c++
+    });
   }
-
 }
+
+
+function doSingleCalc(field, database) {
+  if (field.includes("+")) {
+    let sum = 0;
+    field.split("+").forEach(element => {
+      let name = element.match(/.+\[/gi)[0].replace("[", "");
+      let index = element.match(/\[[0-9]+?\]/gi)[0].replace("[", "").replace("]", "");
+      sum += database[name][index];
+    });
+    return sum
+  }
+}
+
 
 function pepe() {
   alert('click');
@@ -54,20 +69,11 @@ function pepe() {
 
 function newSheet(config) {
   let sheet = document.getElementById("character")
-  let r = "";
   let c = "";
-  let vr = 100 / config.rows;
   let vc = 100 / config.columns;
-  // for (let i = 0; i < config.rows; i++) {
-  //   // r += vr + "% ";
-  //   //r += "5% ";
-  //   r += "auto ";
-  // }
   for (let i = 0; i < config.columns; i++) {
     c += vc + "vw ";
-    //c += "auto ";
   }
-  sheet.style.gridTemplateRows = r;
   sheet.style.gridTemplateColumns = c;
   return sheet;
 }
@@ -88,8 +94,7 @@ function newSection(config) {
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
   section.style.gridRowStart = row[0];
-  section.style.gridRowEnd = Number(row[1]) + 1;
-  section.style.flexDirection = row[1];
+  section.style.gridRowEnd = Number(row[0]) + 1;
   return section;
 }
 
@@ -120,6 +125,7 @@ function newField(config) {
     field.size = config.size;
     field.style.width = config.size + "rem";
     field.maxLength = config.size;
+    field.className = "field";
     group.appendChild(field);
   });
   if (config.label.position == "last") {
