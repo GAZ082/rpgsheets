@@ -18,7 +18,7 @@ let templates = {
               "value": [
                 1,
                 2,
-                "ws[0]+ws[1]"
+                "ws0+ws1"
               ],
               "orientation": "row",
               "type": "number",
@@ -35,7 +35,7 @@ let templates = {
               "value": [
                 1,
                 2,
-                "bs[0]+bs[1]"
+                "bs0+bs1"
               ],
               "orientation": "row",
               "type": "number",
