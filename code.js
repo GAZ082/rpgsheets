@@ -9,10 +9,33 @@ function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   app.template = JSON.parse(localStorage.getItem("jsonData"));
   generateCrunch(app.template.sheet);
-  console.log(app.crunch);
   generateForm(app.template.sheet);
-  updateSheet(app.crunch);
+  // updateSheet(app.crunch);
   //doCalculations(app.crunch);
+}
+
+function generateCrunch(template) {
+  let crunch = {};
+  template.section.forEach(section => {
+    section.group.forEach(group => {
+      group.field.forEach(field => {
+        if (field.value.length == 1) {
+          crunch[field.name] = characterData["sheet"][field.name];
+        } else {
+          for (let i = 0; i < field.value.length; i++) {
+            if ((characterData["sheet"][field.name][i]) == null) {
+              crunch[field.name + i] = field.value[i];
+            } else {
+              crunch[field.name + i] = characterData["sheet"][field.name][i];
+            }
+          }
+        }
+      });
+    });
+  });
+  console.log("crunch: ", crunch);
+
+  app.crunch = crunch
 }
 
 function generateForm(sheet) {
@@ -32,34 +55,9 @@ function generateForm(sheet) {
   });
 }
 
-function generateCrunch(template) {
-  let crunch = {};
-  template.section.forEach(section => {
-    section.group.forEach(group => {
-      group.field.forEach(field => {
-        if (field.type == "number") {
-          let index = 0
-          field.value.forEach(ivalue => {
-            if (ivalue == null) {
-              crunch[field.name + index] = characterData["sheet"][field.name][index];
-            } else {
-              crunch[field.name + index] = ivalue
-            }
-            index++
-          });
-        } else {
-          crunch[field.name] = characterData["sheet"][field.name];
-        }
-      });
-    });
-  });
-  app.crunch = crunch
-}
-
 function updateSheet(crunch) {
   Object.keys(crunch).forEach(field => {
-    if (/\d/.test(field)) {
-      console.log(crunch[field]);
+    if (field.includes("+") || field.includes("*")) { //calculation field
       document.getElementsByName(field)[0].value = doSingleCalc(crunch[field], crunch)
     } else {
       document.getElementsByName(field)[0].value = crunch[field];
@@ -70,7 +68,6 @@ function updateSheet(crunch) {
 function doSingleCalc(field, crunch) {
   if (field.includes("+")) {
     let sum = 0;
-    console.log(field);
     field.split("+").forEach(element => {
       sum += crunch[element];
     });
