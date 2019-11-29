@@ -10,7 +10,7 @@ function init() {
   app.template = JSON.parse(localStorage.getItem("jsonData"));
   generateCrunch(app.template.sheet);
   generateForm(app.template.sheet);
-  // updateSheet(app.crunch);
+  updateSheet(app.crunch);
   //doCalculations(app.crunch);
 }
 
@@ -60,7 +60,14 @@ function updateSheet(crunch) {
     if (field.includes("+") || field.includes("*")) { //calculation field
       document.getElementsByName(field)[0].value = doSingleCalc(crunch[field], crunch)
     } else {
-      document.getElementsByName(field)[0].value = crunch[field];
+      //FIXME: the fields that fail are the ones that do not have *+ but the value are numbers.
+      console.log(document.getElementsByName(field));
+      try {
+        document.getElementsByName(field)[0].value = crunch[field];
+      } catch (error) {
+        console.log("Field not found in template: " +
+          field);
+      }
     }
   });
 }
