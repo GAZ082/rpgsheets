@@ -9,10 +9,10 @@ function init() {
   localStorage.setItem("jsonData", JSON.stringify(templates.whfrpg4e));
   app.template = JSON.parse(localStorage.getItem("jsonData"));
   generateCrunch(app.template.sheet);
-  //doCalculations(app.crunch);
+  console.log(app.crunch);
   generateForm(app.template.sheet);
-  // updateSheet(app.crunch[1]);
-
+  updateSheet(app.crunch);
+  //doCalculations(app.crunch);
 }
 
 function generateForm(sheet) {
@@ -30,59 +30,49 @@ function generateForm(sheet) {
     });
     root.appendChild(nSection);
   });
-  doCalculations(app.crunch);
 }
 
 function generateCrunch(template) {
   let crunch = {};
-  let values = {};
   template.section.forEach(section => {
     section.group.forEach(group => {
       group.field.forEach(field => {
         if (field.type == "number") {
           let index = 0
           field.value.forEach(ivalue => {
-            if (typeof (ivalue) == "number") {
-              crunch[field.name + index] = ivalue;
-              values[field.name + index] = ivalue;
+            if (ivalue == null) {
+              crunch[field.name + index] = characterData["sheet"][field.name][index];
             } else {
-              values[field.name + index] = 0;
               crunch[field.name + index] = ivalue
             }
             index++
           });
+        } else {
+          crunch[field.name] = characterData["sheet"][field.name];
         }
       });
     });
   });
-  app.crunch = [crunch, values]
-}
-
-function doCalculations(database) {
-  Object.keys(database[0]).forEach(field => {
-    if (typeof (database[0][field]) == 'string') {
-      database[1][field] = doSingleCalc(database[0][field], database[1]);
-    } else {
-      database[1][field] = Number(document.getElementsByName([field])[0].value);
-    }
-  });
-
+  app.crunch = crunch
 }
 
 function updateSheet(crunch) {
   Object.keys(crunch).forEach(field => {
-    document.getElementsByName(field)[0].value = crunch[field];
+    if (/\d/.test(field)) {
+      console.log(crunch[field]);
+      document.getElementsByName(field)[0].value = doSingleCalc(crunch[field], crunch)
+    } else {
+      document.getElementsByName(field)[0].value = crunch[field];
+    }
   });
 }
 
-function doSingleCalc(field, database) {
+function doSingleCalc(field, crunch) {
   if (field.includes("+")) {
     let sum = 0;
+    console.log(field);
     field.split("+").forEach(element => {
-      let name = element.match(/[a-z]+/gi)[0];
-      let index = element.match(/[0-9]+/gi)[0];
-
-      sum += database[name + index];
+      sum += crunch[element];
     });
     return sum
   }
@@ -146,19 +136,22 @@ function newField(config) {
   config.value.forEach(element => {
     let field = document.createElement("input");
     field.value = element;
-    field.name = config.name + c;
     field.type = config.type;
+
+    if (field.type == "number") {
+      field.name = config.name + c;
+    } else {
+      field.name = config.name
+    }
     field.style.flexGrow = config.size;
-    // field.size = config.size;
     field.size = config.size;
     field.style.width = config.size + "rem";
     field.maxLength = config.size;
     field.className = "field";
     field.onchange = () => {
       if (field.value != "") {
-        app.crunch[1][field.name] = Number(document.getElementsByName(field.name)[0].value);
-        doCalculations(app.crunch);
-        updateSheet(app.crunch[1]);
+        app.crunch[field.name] = Number(document.getElementsByName(field.name)[0].value);
+        updateSheet(app.crunch);
       }
     }
     fieldGroup.appendChild(field);
@@ -177,7 +170,6 @@ function newLabel(config) {
   label.innerHTML = config.value;
   label.style.textTransform = config.format;
   label.style.flexGrow = config.size;
-  // label.style.width = config.size + 'rem';
   return label;
 }
 
