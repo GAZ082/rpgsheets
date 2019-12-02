@@ -32,9 +32,13 @@ function cacheData(template) {
           data[field.name] = characterData["sheet"][field.name];
         } else {
           for (let i = 0; i < field.value.length; i++) {
-            if ((characterData["sheet"][field.name][i]) == null) {//formula
+            if ((characterData["sheet"][field.name][i]) == null) { //formula
               let fv = field.value[i];
-              calc.push({ "name": field.name + i, "formula": fv.match(/[^:]*$/gi)[0], "order": Number(fv.match(/^[0-9]+/)[0]) });
+              calc.push({
+                "name": field.name + i,
+                "formula": fv.match(/[^:]*$/gi)[0],
+                "order": Number(fv.match(/^[0-9]+/)[0])
+              });
               data[field.name + i] = "";
             } else {
               data[field.name + i] = characterData["sheet"][field.name][i];
@@ -149,8 +153,6 @@ function newGroup(config) {
   return group;
 }
 
-
-
 function saveData() {
   localStorage.setItem("characterData", JSON.stringify(app.data));
   alert("Saved!");
@@ -181,10 +183,10 @@ function newField(config) {
     } else {
       field.name = config.name
     }
-    field.style.flexGrow = config.size;
-    field.size = config.size;
-    field.style.width = config.size + "rem";
-    field.maxLength = config.size;
+    // field.style.flexGrow = config.size;
+    //field.size = config.size;
+    field.style.width = config.size + "vw";
+    field.maxLength = config.max_chars;
 
     field.onchange = () => {
       if (field.value != "") {
@@ -201,8 +203,6 @@ function newField(config) {
   }
   return fieldGroup;
 }
-
-
 
 function newLabel(config) {
   let label = document.createElement("label");
