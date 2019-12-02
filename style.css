@@ -24,11 +24,12 @@ body {
 }
 
 .section>.title {
-  border-bottom: 1px solid black;
+  border: 1px solid black;
   text-align: center;
   margin: auto;
   font-weight: bold;
   color: red;
+  border-radius: 0.2rem;
 }
 
 .fieldGroup {
@@ -53,13 +54,21 @@ input {
   border-bottom: 1px dashed lightgray;
 }
 
+input:disabled {
+  background: none;
+  color:black;
+}
+
+
 label {
   text-align: center;
+  height: 1rem;
 }
 
 .result {
   text-align: center;
   font-weight: bold;
+  height: 1rem;
 }
 
 .field {
@@ -68,6 +77,25 @@ label {
 
 input[name="name"] {
   font-size: 1.4rem;
+}
+
+.button{
+  padding: 0.4rem;
+  width:100%;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.button:hover{
+  background-color: darkred;
+color:red;
+}
+
+.button:first-child{
+  border-right: 1px solid darkred;
+}
+.button:last-child{
+  border-left: 1px solid darkred;
 }
 
 /* Remove input number spinners */
@@ -79,4 +107,13 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+#navBar{
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: lightcoral;
 }
