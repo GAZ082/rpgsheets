@@ -13,13 +13,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
     <section name="characteristics">
       <row>1</row>
       <col>1-20</col>
-      <max_chars>16</max_chars>
       <label>
+        <max_chars>16</max_chars>
         <value>basic information</value>
         <format>capitalize</format>
-        <font>CormorantInfant-Medium.ttf</font>
       </label>
-      <group name="">
+      <font>CormorantInfant-Medium.ttf</font>
+      <group name="some_group">
         <orientation>row</orientation>
         <field name="basics_name">
           <values>
@@ -28,13 +28,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>40</size>
-          <max_chars>16</max_chars>
           <label>
+            <max_chars>16</max_chars>
             <position>last</position>
             <value>name</value>
             <format>capitalize</format>
-            <size>40</size>
           </label>
+          <size>40</size>
         </field>
         <field name="basics_species">
           <values>
@@ -43,13 +43,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>20</size>
-          <max_chars>16</max_chars>
           <label>
+            <max_chars>16</max_chars>
             <position>last</position>
             <value>species</value>
             <format>capitalize</format>
-            <size>20</size>
           </label>
+          <size>20</size>
         </field>
         <field name="basics_class">
           <values>
@@ -58,13 +58,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>20</size>
-          <max_chars>16</max_chars>
           <label>
+            <max_chars>16</max_chars>
             <position>last</position>
             <value>class</value>
             <format>capitalize</format>
-            <size>20</size>
           </label>
+          <size>20</size>
         </field>
         <field name="basics_career">
           <values>
@@ -73,13 +73,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>20</size>
-          <max_chars>16</max_chars>
           <label>
+            <max_chars>16</max_chars>
             <position>last</position>
             <value>career</value>
             <format>capitalize</format>
-            <size>20</size>
           </label>
+          <size>20</size>
         </field>
         <field name="basics_career_level">
           <values>
@@ -88,13 +88,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>number</type>
           <size>1</size>
-          <max_chars>2</max_chars>
           <label>
+            <max_chars>2</max_chars>
             <position>last</position>
             <value>career lvl</value>
             <format>capitalize</format>
-            <size>1</size>
           </label>
+          <size>1</size>
         </field>
         <field name="basics_career_path">
           <values>
@@ -103,13 +103,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>1</size>
-          <max_chars>32</max_chars>
           <label>
+            <max_chars>32</max_chars>
             <position>last</position>
             <value>career path</value>
             <format>capitalize</format>
-            <size>1</size>
           </label>
+          <size>1</size>
         </field>
         <field name="basics_status">
           <values>
@@ -118,13 +118,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>1</size>
-          <max_chars>16</max_chars>
           <label>
+            <max_chars>16</max_chars>
             <position>last</position>
             <value>status</value>
             <format>capitalize</format>
-            <size>1</size>
           </label>
+          <size>1</size>
         </field>
         <field name="basics_age">
           <values>
@@ -133,13 +133,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>number</type>
           <size>5</size>
-          <max_chars>3</max_chars>
           <label>
+            <max_chars>3</max_chars>
             <position>last</position>
             <value>age</value>
             <format>capitalize</format>
-            <size>5</size>
           </label>
+          <size>5</size>
         </field>
         <field name="basics_height">
           <values>
@@ -148,13 +148,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>number</type>
           <size>5</size>
-          <max_chars>3</max_chars>
           <label>
+            <max_chars>3</max_chars>
             <position>last</position>
             <value>height</value>
             <format>capitalize</format>
-            <size>5</size>
           </label>
+          <size>5</size>
         </field>
         <field name="basics_hair">
           <values>
@@ -163,13 +163,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>1</size>
-          <max_chars>12</max_chars>
           <label>
+            <max_chars>12</max_chars>
             <position>last</position>
             <value>hair</value>
             <format>capitalize</format>
-            <size>1</size>
           </label>
+          <size>1</size>
         </field>
         <field name="basics_eyes">
           <values>
@@ -178,32 +178,33 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <orientation>column</orientation>
           <type>text</type>
           <size>5</size>
-          <max_chars>12</max_chars>
           <label>
+            <max_chars>12</max_chars>
             <position>last</position>
             <value>eyes</value>
             <format>capitalize</format>
-            <size>5</size>
           </label>
+          <size>5</size>
         </field>
         <field name="ws">
           <values>
             <value></value>
             <value></value>
-            <value>"ws0+ws1"</value>
+            <value>"99:ws0+ws1"</value>
           </values>
           <orientation>column</orientation>
           <type>text</type>
           <size>5</size>
-          <max_chars>12</max_chars>
           <label>
+            <max_chars>12</max_chars>
             <position>last</position>
-            <value>eyes</value>
+            <value>ws</value>
             <format>capitalize</format>
-            <size>5</size>
           </label>
+          <size>5</size>
         </field>
       </group>
     </section>
+    <section name="rufruf"></section>
   </whfrpg4e>
 </sheet>`;

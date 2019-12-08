@@ -12,46 +12,60 @@ function init() {
   //     console.log(data)
   //   })
   //   .catch(err => console.error(err));
-  localStorage.setItem('templateData', JSON.stringify(templates.whfrpg4e));
-  app.template = JSON.parse(localStorage.getItem('templateData'));
-  cacheData(app.template.sheet);
+  // localStorage.setItem('templateData', JSON.stringify(templates.whfrpg4e));
+  // localStorage.setItem('templateData', JSON.stringify(json));
+  // app.template = JSON.parse(localStorage.getItem('templateData'));
+  let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
+  cacheData(xml, app);
+  console.log(app);
   generateForm(app.template.sheet);
-  loadDataFromFile(app.data);
-  doCalculations(app);
-  exportToJsonFile(app.data);
+  // loadDataFromFile(app.data);
+  // doCalculations(app);
+  // exportToJsonFile(app.data);
 }
-
-function cacheData(template) {
+function cacheData(xml, app) {
   let data = {};
   let calc = [];
-  template.section.forEach(section => {
-    section.group.forEach(group => {
-      group.field.forEach(field => {
-        if (field.value.length == 1) {
-          data[field.name] = characterData['sheet'][field.name];
+  let template = {};
+  template.sheet = {};
+
+  template.sheet["columns"] = xml.evaluate(`string(//whfrpg4e/columns)`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
+
+  let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
+  //XPATH W3C specs first item is 1 not 0.
+  for (let s = 1; s <= qsections; s++) {
+    template.sheet.section
+    let qgroups = xml.evaluate(`count(//section[${s}]/group)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
+    for (let g = 1; g <= qgroups; g++) {
+      let qfields = xml.evaluate(`count(//section[${s}]/group[${g}]/field)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
+      for (let f = 1; f <= qfields; f++) {
+        let fieldName = xml.evaluate(`string(//section[${s}]/group[${g}]/field[${f}]/@name)`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
+        let qvalues = xml.evaluate(`count(//section[${s}]/group[${g}]/field[${f}]/values/value)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
+        if (qvalues == 1) {
+          data[fieldName] = characterData['sheet'][fieldName];
         } else {
-          for (let i = 0; i < field.value.length; i++) {
-            if (characterData['sheet'][field.name][i] == null) {
-              //formula
-              let fv = field.value[i];
+          for (let i = 0; i < qvalues; i++) {
+            if (characterData['sheet'][fieldName][i] == null) {//formula
+              let fv = xml.evaluate(`string(//field[@name='${fieldName}']//value[last()])`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
               calc.push({
-                name: field.name + i,
+                name: fieldName + i,
                 formula: fv.match(/[^:]*$/gi)[0],
-                order: Number(fv.match(/^[0-9]+/)[0])
+                order: Number(fv.match(/[0-9]+/)[0])
               });
-              data[field.name + i] = '';
+              data[fieldName + i] = '';
             } else {
-              data[field.name + i] = characterData['sheet'][field.name][i];
+              data[fieldName + i] = characterData['sheet'][fieldName][i];
+
             }
           }
         }
-      });
-    });
-  });
+      }
+    }
+  }
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
-  console.log(app);
+  app.template = template;
 }
 
 function generateForm(sheet) {
@@ -230,13 +244,21 @@ function exportToJsonFile(jsonData) {
   // document.body.appendChild(linkElement);
 }
 
-function xml22() {
-  var xmlDoc = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
-  let nodes = xmlDoc.evaluate("/sheet", xmlDoc, null, XPathResult.ANY_TYPE, null);
-  var result = nodes.iterateNext();
-  console.log(result);
+
+function xPathReturn(xml, xpath) {
+  return xml.evaluate(xpath, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
 }
 
-// window.onload = init;/*  */
+function parseXML(xml, term) {
+  let nodes = xml.evaluate(term, xml, null, XPathResult.ANY_TYPE, null);
+  let node = null;
+  let returnArray = [];
+  while (node = nodes.iterateNext()) {
+    returnArray.push(node);
+  }
+  return returnArray;
+}
 
-window.onload = xml22;
+
+window.onload = init;
