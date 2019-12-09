@@ -27,35 +27,50 @@ function cacheData(xml, app) {
   let data = {};
   let calc = [];
   let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
-  //XPATH W3C specs first item is 1 not 0.
-  for (let s = 1; s <= qsections; s++) {
-    let qgroups = xml.evaluate(`count(//section[${s}]/group)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
-    for (let g = 1; g <= qgroups; g++) {
-      let qfields = xml.evaluate(`count(//section[${s}]/group[${g}]/field)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
-      for (let f = 1; f <= qfields; f++) {
-        let fieldName = xml.evaluate(`string(//section[${s}]/group[${g}]/field[${f}]/@name)`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
-        let qvalues = xml.evaluate(`count(//section[${s}]/group[${g}]/field[${f}]/values/value)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
-        if (qvalues == 1) {
-          data[fieldName] = characterData['sheet'][fieldName];
-        } else {
-          for (let i = 0; i < qvalues; i++) {
-            if (characterData['sheet'][fieldName][i] == null) { //formula
-              let fv = xml.evaluate(`string(//field[@name='${fieldName}']//value[last()])`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
-              calc.push({
-                name: fieldName + i,
-                formula: fv.match(/[^:]*$/gi)[0],
-                order: Number(fv.match(/[0-9]+/)[0])
-              });
-              data[fieldName + i] = '';
-            } else {
-              data[fieldName + i] = characterData['sheet'][fieldName][i];
 
+
+  xml.querySelectorAll("section").forEach(section => {
+    let nSection = newSection(section)
+    section.querySelectorAll("group").forEach(group => {
+      let nGroup = newGroup(group)
+      group.querySelectorAll("field").forEach(field => {
+        field.querySelectorAll("values").forEach(values => {
+          let fieldName = field.getAttribute("name")
+          let qValue = values.getElementsByTagName("value").length
+          if (qValue == 1) {
+            data[fieldName] = characterData['sheet'][fieldName];
+          } else {
+
+          };
+        });
+
+      });
+    });
+  });
+
+
+  //XPATH W3C specs first item is 1 not 0.
+  /*         if (qvalues == 1) {
+            data[fieldName] = characterData['sheet'][fieldName];
+          } else {
+            for (let i = 0; i < qvalues; i++) {
+              if (characterData['sheet'][fieldName][i] == null) { //formula
+                let fv = xml.evaluate(`string(//field[@name='${fieldName}']//value[last()])`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
+                calc.push({
+                  name: fieldName + i,
+                  formula: fv.match(/[^:]*$/gi)[0],
+                  order: Number(fv.match(/[0-9]+/)[0])
+                });
+                data[fieldName + i] = '';
+              } else {
+                data[fieldName + i] = characterData['sheet'][fieldName][i];
+
+              }
             }
-          }
-        }
-      }
-    }
-  }
+          } */
+
+
+
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
@@ -64,69 +79,19 @@ function cacheData(xml, app) {
 function generateForm(xml) {
   let root = newSheet(xml);
   xml.querySelectorAll("section").forEach(section => {
-    console.log(section.getAttribute("name"));
+    let nSection = newSection(section)
     section.querySelectorAll("group").forEach(group => {
-      console.log(group.getAttribute("name"));
+      let nGroup = newGroup(group)
       group.querySelectorAll("field").forEach(field => {
-        console.log(field.getAttribute("name"));
-        field.querySelectorAll("values").forEach(values => {
-          console.log(values.getElementsByTagName("value").length);
-        });
+        /*        let nField = newField(field);
+               nField.flexDirection = group.querySelector("orientation").innerHTML;;
+               nGroup.appendChild(nField); */
       });
+      nSection.appendChild(nGroup);
     });
+    root.appendChild(nSection);
   });
 
-  // let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
-  // let sections = xml.evaluate("//section", xml, null, XPathResult.ANY_TYPE, null);
-  // let section = []
-  // while (section = sections.iterateNext()) {
-  //   let nSection = newSection(xml, section.getAttribute("name"));
-  //   // let groups = section.ChildNode();
-  //   console.log(section.getElementsByTagName("group")[0]);
-
-
-
-
-  // }
-
-  /*   for (let s = 1; s <= qsections; s++) {
-      let section = getXMLValue(xml, `//section[${s}]/@name`)
-      let nSection = newSection(xml, section);
-      let qgroups = xml.evaluate(`count(//section[${s}]/group)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
-      for (let g = 1; g <= qgroups; g++) {
-        let group = getXMLValue(xml, `//section[${s}]/group/@name`)
-        let nGroup = newGroup(xml, group);
-        let qfields = xml.evaluate(`count(//section[${s}]/group[${g}]/field)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
-        for (let f = 1; f <= qfields; f++) {
-          let fieldName = getXMLValue(xml, `//section[${s}]/group[${g}]/field[${f}]/@name`);
-          let nField = newField(xml, fieldName);
-          //       nField.flexDirection = group.orientation;
-          //       nGroup.appendChild(nField);
-
-
-
-
-        }
-        nSection.appendChild(nGroup);
-      }
-      root.appendChild(nSection);
-    } */
-
-
-
-  // sheet.section.forEach(section => {
-  //   let nSection = newSection(section);
-  //   section.group.forEach(group => {
-  //     let nGroup = newGroup(group);
-  //     group.field.forEach(field => {
-  //       let nField = newField(field);
-  //       nField.flexDirection = group.orientation;
-  //       nGroup.appendChild(nField);
-  //     });
-  //     nSection.appendChild(nGroup);
-  //   });
-  //   root.appendChild(nSection);
-  // });
 }
 
 function loadDataFromFile(data) {
@@ -183,19 +148,18 @@ function newSheet(xml) {
   return sheet;
 }
 
-function newSection(xml, name) {
-  let sectionName = `//section[@name='${name}']`;
+function newSection(template) {
   let section = document.createElement('fieldset');
   let title = document.createElement('legend');
   title.className = 'title';
-  title.title = getXMLValue(xml, sectionName + "/label/value");
-  title.innerHTML = getXMLValue(xml, sectionName + "/label/value");
-  title.style.textTransform = getXMLValue(xml, sectionName + "/format");
-  title.style.fontFamily = getXMLValue(xml, sectionName + "/label/font");
+  title.title = getSelectorValue(template, "label>value");
+  title.innerHTML = getSelectorValue(template, "label>value");
+  title.style.textTransform = getSelectorValue(template, "label>format");
+  // title.style.fontFamily = getSelectorValue(template,"font");
   section.appendChild(title);
-  let row = getXMLValue(xml, sectionName + "/row").split('-');
-  let col = getXMLValue(xml, sectionName + "/col").split('-');
-  section.title = getXMLValue(xml, sectionName + "/label/value");
+  let row = getSelectorValue(template, "row").split('-');
+  let col = getSelectorValue(template, "col").split('-');
+  section.title = getSelectorValue(template, "label>value");
   section.className = 'section';
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
@@ -204,9 +168,9 @@ function newSection(xml, name) {
   return section;
 }
 
-function newGroup(xml, name) {
+function newGroup(template) {
   let group = document.createElement('div');
-  group.style.flexDirection = getXMLValue(xml, `//group[@name='${name}']/orientation`);
+  group.style.flexDirection = getSelectorValue(template, "orientation");
   group.className = 'group';
   return group;
 }
@@ -216,8 +180,8 @@ function saveData() {
   alert('Saved!');
 }
 
-function newField(xml, name) {
-  let fieldName = `//field[@name='${name}']`;
+function newField(template) {
+  let fieldName = template.getAttribute("name");
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
   fieldGroup.style.flexDirection = getXMLValue(xml, fieldName + "/orientation");
@@ -311,6 +275,10 @@ function parseXML(xml, term) {
 
 function getXMLValue(xml, xpath) {
   return xml.evaluate(`string(${xpath})`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
+}
+
+function getSelectorValue(element, query) {
+  return element.querySelector(query).innerHTML
 }
 
 
