@@ -190,7 +190,7 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <values>
             <value></value>
             <value></value>
-            <value>"99:ws0+ws1"</value>
+            <value>"0:ws0+ws1"</value>
           </values>
           <orientation>column</orientation>
           <type>text</type>
@@ -205,6 +205,5 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         </field>
       </group>
     </section>
-    <section name="rufruf"></section>
   </whfrpg4e>
 </sheet>`;

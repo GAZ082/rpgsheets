@@ -1,7 +1,6 @@
 'use strict';
 
 let app = {};
-app.template = {};
 app.data = [];
 app.calc = [];
 
@@ -18,7 +17,7 @@ function init() {
   let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
   cacheData(xml, app);
   console.log(app);
-  generateForm(app.template.sheet);
+  generateForm(xml);
   // loadDataFromFile(app.data);
   // doCalculations(app);
   // exportToJsonFile(app.data);
@@ -26,15 +25,9 @@ function init() {
 function cacheData(xml, app) {
   let data = {};
   let calc = [];
-  let template = {};
-  template.sheet = {};
-
-  template.sheet["columns"] = xml.evaluate(`string(//whfrpg4e/columns)`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
-
   let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
   //XPATH W3C specs first item is 1 not 0.
   for (let s = 1; s <= qsections; s++) {
-    template.sheet.section
     let qgroups = xml.evaluate(`count(//section[${s}]/group)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
     for (let g = 1; g <= qgroups; g++) {
       let qfields = xml.evaluate(`count(//section[${s}]/group[${g}]/field)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
@@ -65,24 +58,72 @@ function cacheData(xml, app) {
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
-  app.template = template;
 }
 
-function generateForm(sheet) {
-  let root = newSheet(sheet);
-  sheet.section.forEach(section => {
-    let nSection = newSection(section);
-    section.group.forEach(group => {
-      let nGroup = newGroup(group);
-      group.field.forEach(field => {
-        let nField = newField(field);
-        nField.flexDirection = group.orientation;
-        nGroup.appendChild(nField);
-      });
-      nSection.appendChild(nGroup);
-    });
-    root.appendChild(nSection);
+function generateForm(xml) {
+  let root = newSheet(xml);
+
+  let sections = xml.querySelectorAll("section");
+  sections.forEach(element => {
+    console.log(element.childNodes);
+
+    // let groups = xml.querySelectorAll("section");
+    // console.log(element.querySelectorAll(element));
+
+
   });
+
+  // let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
+  // let sections = xml.evaluate("//section", xml, null, XPathResult.ANY_TYPE, null);
+  // let section = []
+  // while (section = sections.iterateNext()) {
+  //   let nSection = newSection(xml, section.getAttribute("name"));
+  //   // let groups = section.ChildNode();
+  //   console.log(section.getElementsByTagName("group")[0]);
+
+
+
+
+  // }
+
+  /*   for (let s = 1; s <= qsections; s++) {
+      let section = getXMLValue(xml, `//section[${s}]/@name`)
+      let nSection = newSection(xml, section);
+      let qgroups = xml.evaluate(`count(//section[${s}]/group)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
+      for (let g = 1; g <= qgroups; g++) {
+        let group = getXMLValue(xml, `//section[${s}]/group/@name`)
+        let nGroup = newGroup(xml, group);
+        let qfields = xml.evaluate(`count(//section[${s}]/group[${g}]/field)`, xml, null, XPathResult.ANY_TYPE, null).numberValue;
+        for (let f = 1; f <= qfields; f++) {
+          let fieldName = getXMLValue(xml, `//section[${s}]/group[${g}]/field[${f}]/@name`);
+          let nField = newField(xml, fieldName);
+          //       nField.flexDirection = group.orientation;
+          //       nGroup.appendChild(nField);
+
+
+
+
+        }
+        nSection.appendChild(nGroup);
+      }
+      root.appendChild(nSection);
+    } */
+
+
+
+  // sheet.section.forEach(section => {
+  //   let nSection = newSection(section);
+  //   section.group.forEach(group => {
+  //     let nGroup = newGroup(group);
+  //     group.field.forEach(field => {
+  //       let nField = newField(field);
+  //       nField.flexDirection = group.orientation;
+  //       nGroup.appendChild(nField);
+  //     });
+  //     nSection.appendChild(nGroup);
+  //   });
+  //   root.appendChild(nSection);
+  // });
 }
 
 function loadDataFromFile(data) {
@@ -127,29 +168,31 @@ function doSingleCalc(field, data) {
   }
 }
 
-function newSheet(config) {
+function newSheet(xml) {
   let sheet = document.getElementById('character');
   let c = '';
-  let vc = 100 / config.columns;
-  for (let i = 0; i < config.columns; i++) {
+  let columns = getXMLValue(xml, "/sheet//columns");
+  let vc = 100 / columns;
+  for (let i = 0; i < columns; i++) {
     c += vc + 'vw ';
   }
   sheet.style.gridTemplateColumns = c;
   return sheet;
 }
 
-function newSection(config) {
+function newSection(xml, name) {
+  let sectionName = `//section[@name='${name}']`;
   let section = document.createElement('fieldset');
   let title = document.createElement('legend');
   title.className = 'title';
-  title.title = config.label.value;
-  title.innerHTML = config.label.value;
-  title.style.textTransform = config.label.format;
-  title.style.fontFamily = config.label.font;
+  title.title = getXMLValue(xml, sectionName + "/label/value");
+  title.innerHTML = getXMLValue(xml, sectionName + "/label/value");
+  title.style.textTransform = getXMLValue(xml, sectionName + "/format");
+  title.style.fontFamily = getXMLValue(xml, sectionName + "/label/font");
   section.appendChild(title);
-  let row = config.row.split('-');
-  let col = config.col.split('-');
-  section.title = config.name;
+  let row = getXMLValue(xml, sectionName + "/row").split('-');
+  let col = getXMLValue(xml, sectionName + "/col").split('-');
+  section.title = getXMLValue(xml, sectionName + "/label/value");
   section.className = 'section';
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
@@ -158,9 +201,9 @@ function newSection(config) {
   return section;
 }
 
-function newGroup(config) {
+function newGroup(xml, name) {
   let group = document.createElement('div');
-  group.style.flexDirection = config.orientation;
+  group.style.flexDirection = getXMLValue(xml, `//group[@name='${name}']/orientation`);
   group.className = 'group';
   return group;
 }
@@ -170,51 +213,54 @@ function saveData() {
   alert('Saved!');
 }
 
-function newField(config) {
+function newField(xml, name) {
+  let fieldName = `//field[@name='${name}']`;
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
-  fieldGroup.style.flexDirection = config.orientation;
-  if (config.label.position == 'first') {
-    fieldGroup.appendChild(newLabel(config.label));
+  fieldGroup.style.flexDirection = getXMLValue(xml, fieldName + "/orientation");
+  if (getXMLValue(xml, fieldName + "/label/position") == 'first') {
+    fieldGroup.appendChild(newLabel(getXMLValue(xml, fieldName + "/label/value")));
   }
   let c = 0;
-  config.value.forEach(value => {
-    let field;
-    field = document.createElement('input');
-    if (typeof value == 'string') {
-      field.className = 'result';
-      field.disabled = true;
-    } else {
-      field = document.createElement('input');
-      field.className = 'field';
-    }
-    field.value = value;
-    field.type = config.type;
-    if (config.value.length > 1) {
-      field.name = config.name + c;
-    } else {
-      field.name = config.name;
-    }
-    // field.style.flexGrow = config.size;
-    //field.size = config.size;
-    field.style.width = config.size + 'vw';
-    field.maxLength = config.max_chars;
+  // config.value.forEach(value => {
+  //   let field;
+  //   field = document.createElement('input');
+  //   if (typeof value == 'string') {
+  //     field.className = 'result';
+  //     field.disabled = true;
+  //   } else {
+  //     field = document.createElement('input');
+  //     field.className = 'field';
+  //   }
+  //   field.value = value;
+  //   field.type = config.type;
+  //   if (config.value.length > 1) {
+  //     field.name = config.name + c;
+  //   } else {
+  //     field.name = config.name;
+  //   }
+  //   // field.style.flexGrow = config.size;
+  //   //field.size = config.size;
+  //   field.style.width = config.size + 'vw';
+  //   field.maxLength = config.max_chars;
 
-    field.onchange = () => {
-      if (field.value != '') {
-        app.data[field.name] = Number(
-          document.getElementsByName(field.name)[0].value
-        );
-        doCalculations(app);
-        console.log(app.data);
-      }
-    };
-    fieldGroup.appendChild(field);
-    c++;
-  });
-  if (config.label.position == 'last') {
-    fieldGroup.appendChild(newLabel(config.label));
+  //   field.onchange = () => {
+  //     if (field.value != '') {
+  //       app.data[field.name] = Number(
+  //         document.getElementsByName(field.name)[0].value
+  //       );
+  //       doCalculations(app);
+  //       console.log(app.data);
+  //     }
+  //   };
+  //   fieldGroup.appendChild(field);
+  //   c++;
+  // });
+
+  if (getXMLValue(xml, fieldName + "/label/position") == 'last') {
+    fieldGroup.appendChild(newLabel(getXMLValue(xml, fieldName + "/label/value")));
   }
+
   return fieldGroup;
 }
 
@@ -258,6 +304,9 @@ function parseXML(xml, term) {
     returnArray.push(node);
   }
   return returnArray;
+}
+function getXMLValue(xml, xpath) {
+  return xml.evaluate(`string(${xpath})`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
 }
 
 
