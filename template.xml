@@ -205,5 +205,32 @@
         </field>
       </group>
     </section>
+    <section name="second section">
+      <row>2</row>
+      <col>1-20</col>
+      <label>
+        <max_chars>16</max_chars>
+        <value>second section</value>
+        <format>capitalize</format>
+      </label>
+      <group name="group of second section">
+        <orientation>row</orientation>
+        <field name="sample">
+          <values>
+            <value></value>
+          </values>
+          <orientation>column</orientation>
+          <type>text</type>
+          <size>40</size>
+          <label>
+            <max_chars>16</max_chars>
+            <position>last</position>
+            <value>sample</value>
+            <format>capitalize</format>
+          </label>
+          <size>10</size>
+        </field>
+      </group>
+    </section>
   </whfrpg4e>
 </sheet>

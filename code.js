@@ -22,6 +22,7 @@ function init() {
   // doCalculations(app);
   // exportToJsonFile(app.data);
 }
+
 function cacheData(xml, app) {
   let data = {};
   let calc = [];
@@ -38,7 +39,7 @@ function cacheData(xml, app) {
           data[fieldName] = characterData['sheet'][fieldName];
         } else {
           for (let i = 0; i < qvalues; i++) {
-            if (characterData['sheet'][fieldName][i] == null) {//formula
+            if (characterData['sheet'][fieldName][i] == null) { //formula
               let fv = xml.evaluate(`string(//field[@name='${fieldName}']//value[last()])`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
               calc.push({
                 name: fieldName + i,
@@ -62,15 +63,17 @@ function cacheData(xml, app) {
 
 function generateForm(xml) {
   let root = newSheet(xml);
-
-  let sections = xml.querySelectorAll("section");
-  sections.forEach(element => {
-    console.log(element.childNodes);
-
-    // let groups = xml.querySelectorAll("section");
-    // console.log(element.querySelectorAll(element));
-
-
+  xml.querySelectorAll("section").forEach(section => {
+    console.log(section.getAttribute("name"));
+    section.querySelectorAll("group").forEach(group => {
+      console.log(group.getAttribute("name"));
+      group.querySelectorAll("field").forEach(field => {
+        console.log(field.getAttribute("name"));
+        field.querySelectorAll("values").forEach(values => {
+          console.log(values.getElementsByTagName("value").length);
+        });
+      });
+    });
   });
 
   // let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
@@ -305,6 +308,7 @@ function parseXML(xml, term) {
   }
   return returnArray;
 }
+
 function getXMLValue(xml, xpath) {
   return xml.evaluate(`string(${xpath})`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
 }
