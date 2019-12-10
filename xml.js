@@ -33,8 +33,9 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>name</value>
             <format>capitalize</format>
+            <size>40</size>
           </label>
-          <size>40</size>
+
         </field>
         <field name="basics_species">
           <values>
@@ -48,8 +49,9 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>species</value>
             <format>capitalize</format>
+            <size>20</size>
           </label>
-          <size>20</size>
+
         </field>
         <field name="basics_class">
           <values>
@@ -63,8 +65,9 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>class</value>
             <format>capitalize</format>
+            <size>20</size>
           </label>
-          <size>20</size>
+
         </field>
         <field name="basics_career">
           <values>
@@ -78,8 +81,9 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>career</value>
             <format>capitalize</format>
+            <size>20</size>
           </label>
-          <size>20</size>
+
         </field>
         <field name="basics_career_level">
           <values>
@@ -93,8 +97,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>career lvl</value>
             <format>capitalize</format>
+            <size>1</size>
           </label>
-          <size>1</size>
         </field>
         <field name="basics_career_path">
           <values>
@@ -108,8 +112,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>career path</value>
             <format>capitalize</format>
+            <size>1</size>
           </label>
-          <size>1</size>
         </field>
         <field name="basics_status">
           <values>
@@ -123,8 +127,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>status</value>
             <format>capitalize</format>
+            <size>1</size>
           </label>
-          <size>1</size>
         </field>
         <field name="basics_age">
           <values>
@@ -138,8 +142,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>age</value>
             <format>capitalize</format>
+            <size>5</size>
           </label>
-          <size>5</size>
         </field>
         <field name="basics_height">
           <values>
@@ -153,8 +157,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>height</value>
             <format>capitalize</format>
+            <size>5</size>
           </label>
-          <size>5</size>
         </field>
         <field name="basics_hair">
           <values>
@@ -168,8 +172,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>hair</value>
             <format>capitalize</format>
+            <size>1</size>
           </label>
-          <size>1</size>
         </field>
         <field name="basics_eyes">
           <values>
@@ -183,8 +187,8 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>eyes</value>
             <format>capitalize</format>
+            <size>5</size>
           </label>
-          <size>5</size>
         </field>
         <field name="ws">
           <values>
@@ -200,14 +204,14 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>ws</value>
             <format>capitalize</format>
+            <size>5</size>
           </label>
-          <size>5</size>
         </field>
       </group>
     </section>
     <section name="second section">
       <row>2</row>
-      <col>1-20</col>
+      <col>1-10</col>
       <label>
         <max_chars>16</max_chars>
         <value>second section</value>
@@ -227,8 +231,35 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <position>last</position>
             <value>sample</value>
             <format>capitalize</format>
+            <size>10</size>
           </label>
-          <size>10</size>
+        </field>
+      </group>
+    </section>
+    <section name="third section">
+      <row>2</row>
+      <col>11-20</col>
+      <label>
+        <max_chars>16</max_chars>
+        <value>third section</value>
+        <format>capitalize</format>
+      </label>
+      <group name="group of third section">
+        <orientation>row</orientation>
+        <field name="sample 2">
+          <values>
+            <value></value>
+          </values>
+          <orientation>column</orientation>
+          <type>text</type>
+          <size>40</size>
+          <label>
+            <max_chars>16</max_chars>
+            <position>last</position>
+            <value>sample 2</value>
+            <format>capitalize</format>
+            <size>10</size>
+          </label>
         </field>
       </group>
     </section>

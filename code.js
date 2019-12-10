@@ -26,13 +26,8 @@ function init() {
 function cacheData(xml, app) {
   let data = {};
   let calc = [];
-  let qsections = xml.evaluate("count(//section)", xml, null, XPathResult.ANY_TYPE, null).numberValue;
-
-
   xml.querySelectorAll("section").forEach(section => {
-    let nSection = newSection(section)
     section.querySelectorAll("group").forEach(group => {
-      let nGroup = newGroup(group)
       group.querySelectorAll("field").forEach(field => {
         field.querySelectorAll("values").forEach(values => {
           let fieldName = field.getAttribute("name")
@@ -40,37 +35,22 @@ function cacheData(xml, app) {
           if (qValue == 1) {
             data[fieldName] = characterData['sheet'][fieldName];
           } else {
-
+            let f = 0;
+            values.querySelectorAll("value").forEach(value => {
+              if (characterData['sheet'][fieldName][f] == null) { //formula
+                calc.push({
+                  name: fieldName + f,
+                  formula: value.innerHTML.match(/[^:]*$/gi)[0],
+                  order: Number(value.innerHTML.match(/[0-9]+/)[0])
+                });
+              }
+              f++
+            });
           };
         });
-
       });
     });
   });
-
-
-  //XPATH W3C specs first item is 1 not 0.
-  /*         if (qvalues == 1) {
-            data[fieldName] = characterData['sheet'][fieldName];
-          } else {
-            for (let i = 0; i < qvalues; i++) {
-              if (characterData['sheet'][fieldName][i] == null) { //formula
-                let fv = xml.evaluate(`string(//field[@name='${fieldName}']//value[last()])`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
-                calc.push({
-                  name: fieldName + i,
-                  formula: fv.match(/[^:]*$/gi)[0],
-                  order: Number(fv.match(/[0-9]+/)[0])
-                });
-                data[fieldName + i] = '';
-              } else {
-                data[fieldName + i] = characterData['sheet'][fieldName][i];
-
-              }
-            }
-          } */
-
-
-
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
@@ -83,9 +63,9 @@ function generateForm(xml) {
     section.querySelectorAll("group").forEach(group => {
       let nGroup = newGroup(group)
       group.querySelectorAll("field").forEach(field => {
-        /*        let nField = newField(field);
-               nField.flexDirection = group.querySelector("orientation").innerHTML;;
-               nGroup.appendChild(nField); */
+        let nField = newField(field);
+        nField.flexDirection = group.querySelector("orientation").innerHTML;;
+        nGroup.appendChild(nField);
       });
       nSection.appendChild(nGroup);
     });
@@ -184,11 +164,24 @@ function newField(template) {
   let fieldName = template.getAttribute("name");
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
-  fieldGroup.style.flexDirection = getXMLValue(xml, fieldName + "/orientation");
-  if (getXMLValue(xml, fieldName + "/label/position") == 'first') {
-    fieldGroup.appendChild(newLabel(getXMLValue(xml, fieldName + "/label/value")));
+  fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
+
+  if (getSelectorValue(template, "label>position") == 'first') {
+    fieldGroup.appendChild(newLabel(template));
   }
   let c = 0;
+  template.querySelectorAll("value").forEach(value => {
+    console.log(value);
+    let field = document.createElement('input');
+    if (getSelectorValue(template, "type") == 'text') {
+      field.className = 'result';
+      field.disabled = true;
+    } else {
+      field.className = 'field';
+    }
+    fieldGroup.appendChild(field);
+  });
+
   // config.value.forEach(value => {
   //   let field;
   //   field = document.createElement('input');
@@ -220,22 +213,23 @@ function newField(template) {
   //       console.log(app.data);
   //     }
   //   };
-  //   fieldGroup.appendChild(field);
+  // fieldGroup.appendChild(field);
   //   c++;
   // });
 
-  if (getXMLValue(xml, fieldName + "/label/position") == 'last') {
-    fieldGroup.appendChild(newLabel(getXMLValue(xml, fieldName + "/label/value")));
+  if (getSelectorValue(template, "label>position") == 'last') {
+    fieldGroup.appendChild(newLabel(template));
   }
+  // }
 
   return fieldGroup;
 }
 
-function newLabel(config) {
+function newLabel(template) {
   let label = document.createElement('label');
-  label.innerHTML = config.value;
-  label.style.textTransform = config.format;
-  label.style.flexGrow = config.size;
+  label.innerHTML = getSelectorValue(template, "label>value");
+  label.style.textTransform = getSelectorValue(template, "label>format");
+  label.style.flexGrow = getSelectorValue(template, "label>size");
   return label;
 }
 
