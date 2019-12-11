@@ -14,7 +14,8 @@ let characterData = {
     "ws": [1, 2],
     "bs": [3, 4],
     "xs": [3, 4],
-    "ys": [3, 4]
+    "ys": [3, 4],
+    "fel": [1]
   },
   "meta": {
     "character_created": "",

@@ -2,12 +2,12 @@
 <sheet>
   <whfrpg4e name="Warhammer Fantasy RPG 4th Edition">
     <meta>
-    <version>0</version>
-    <author></author>
-    <contact></contact>
-    <notes></notes>
-    <released></released>
-    <updated></updated>
+      <version>0</version>
+      <author></author>
+      <contact></contact>
+      <notes></notes>
+      <released></released>
+      <updated></updated>
     </meta>
     <columns>20</columns>
     <section name="characteristics">
@@ -203,6 +203,22 @@
             <max_chars>12</max_chars>
             <position>last</position>
             <value>ws</value>
+            <format>capitalize</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="fel">
+          <values>
+            <value></value>
+            <value>"1:fel0+ws2"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>text</type>
+          <size>5</size>
+          <label>
+            <max_chars>12</max_chars>
+            <position>last</position>
+            <value>fel</value>
             <format>capitalize</format>
             <size>5</size>
           </label>

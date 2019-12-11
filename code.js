@@ -4,7 +4,7 @@ let app = {};
 app.data = [];
 app.calc = [];
 
-function init() {
+async function init() {
   // fetch('http://localhost/templates.js')
   //   .then(res => res.json())
   //   .then(data => {
@@ -16,11 +16,8 @@ function init() {
   // app.template = JSON.parse(localStorage.getItem('templateData'));
   let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
   cacheData(xml, app);
-  console.log(app);
-  generateForm(xml);
-  // loadDataFromFile(app.data);
-  // doCalculations(app);
-  // exportToJsonFile(app.data);
+  loadForm(xml).then(loadDataFromFile(app.data));
+  doCalculations(app);
 }
 
 function cacheData(xml, app) {
@@ -40,9 +37,11 @@ function cacheData(xml, app) {
               if (characterData['sheet'][fieldName][f] == null) { //formula
                 calc.push({
                   name: fieldName + f,
-                  formula: value.innerHTML.match(/[^:]*$/gi)[0],
+                  formula: value.innerHTML.match(/[^":]+[a-z0-9]+[^"]/gi)[0],
                   order: Number(value.innerHTML.match(/[0-9]+/)[0])
                 });
+              } else {
+                data[fieldName + f] = characterData['sheet'][fieldName][f];
               }
               f++
             });
@@ -54,7 +53,15 @@ function cacheData(xml, app) {
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
+  console.log(app);
 }
+
+
+function loadForm(xml) {
+  return new Promise(function (resolve, reject) {
+    resolve(generateForm(xml));
+  });
+};
 
 function generateForm(xml) {
   let root = newSheet(xml);
@@ -71,7 +78,6 @@ function generateForm(xml) {
     });
     root.appendChild(nSection);
   });
-
 }
 
 function loadDataFromFile(data) {
@@ -89,6 +95,8 @@ function loadDataFromFile(data) {
 function doCalculations(data) {
   console.log('Doing calculations.');
   data.calc.forEach(dataField => {
+    console.log(dataField);
+
     let formField;
     try {
       formField = document.getElementsByName(dataField.name)[0];
@@ -96,7 +104,6 @@ function doCalculations(data) {
       console.log('Calculation not found in template: ' + dataField);
     }
     formField.value = doSingleCalc(dataField.formula, app.data);
-    app.data[formField.name] = Number(formField.value);
   });
 }
 
@@ -104,7 +111,13 @@ function doSingleCalc(field, data) {
   if (field.includes('+')) {
     let sum = 0;
     field.split('+').forEach(element => {
-      sum += data[element];
+      if (data[element] == null) {
+        sum += Number(document.getElementsByName(element)[0].value);
+      } else {
+        sum += data[element];
+      }
+
+
     });
     return sum;
   } else {
@@ -119,7 +132,7 @@ function doSingleCalc(field, data) {
 function newSheet(xml) {
   let sheet = document.getElementById('character');
   let c = '';
-  let columns = getXMLValue(xml, "/sheet//columns");
+  let columns = xml.querySelectorAll("sheet>columns");
   let vc = 100 / columns;
   for (let i = 0; i < columns; i++) {
     c += vc + 'vw ';
@@ -135,7 +148,6 @@ function newSection(template) {
   title.title = getSelectorValue(template, "label>value");
   title.innerHTML = getSelectorValue(template, "label>value");
   title.style.textTransform = getSelectorValue(template, "label>format");
-  // title.style.fontFamily = getSelectorValue(template,"font");
   section.appendChild(title);
   let row = getSelectorValue(template, "row").split('-');
   let col = getSelectorValue(template, "col").split('-');
@@ -169,58 +181,35 @@ function newField(template) {
   if (getSelectorValue(template, "label>position") == 'first') {
     fieldGroup.appendChild(newLabel(template));
   }
-  let c = 0;
-  template.querySelectorAll("value").forEach(value => {
-    console.log(value);
+
+  let qValues = template.querySelectorAll("values>value").length;
+  let v = 0;
+  template.querySelectorAll("values>value").forEach(value => {
     let field = document.createElement('input');
-    if (getSelectorValue(template, "type") == 'text') {
-      field.className = 'result';
-      field.disabled = true;
+    if (qValues > 1) {
+      field.name = fieldName + v;
     } else {
-      field.className = 'field';
+      field.name = fieldName;
     }
+    field.className = 'field';
+    field.style.flexGrow = getSelectorValue(template, "size");
+    field.style.width = getSelectorValue(template, "size") + 'vw';
+    field.maxLength = getSelectorValue(template, "max_chars");
+    field.onchange = () => {
+      if (value.innerHTML != null) {
+        app.data[field.name] = Number(
+          document.getElementsByName(field.name)[0].value
+        );
+        doCalculations(app);
+      }
+    };
     fieldGroup.appendChild(field);
+    v++;
   });
-
-  // config.value.forEach(value => {
-  //   let field;
-  //   field = document.createElement('input');
-  //   if (typeof value == 'string') {
-  //     field.className = 'result';
-  //     field.disabled = true;
-  //   } else {
-  //     field = document.createElement('input');
-  //     field.className = 'field';
-  //   }
-  //   field.value = value;
-  //   field.type = config.type;
-  //   if (config.value.length > 1) {
-  //     field.name = config.name + c;
-  //   } else {
-  //     field.name = config.name;
-  //   }
-  //   // field.style.flexGrow = config.size;
-  //   //field.size = config.size;
-  //   field.style.width = config.size + 'vw';
-  //   field.maxLength = config.max_chars;
-
-  //   field.onchange = () => {
-  //     if (field.value != '') {
-  //       app.data[field.name] = Number(
-  //         document.getElementsByName(field.name)[0].value
-  //       );
-  //       doCalculations(app);
-  //       console.log(app.data);
-  //     }
-  //   };
-  // fieldGroup.appendChild(field);
-  //   c++;
-  // });
 
   if (getSelectorValue(template, "label>position") == 'last') {
     fieldGroup.appendChild(newLabel(template));
   }
-  // }
 
   return fieldGroup;
 }
@@ -265,10 +254,6 @@ function parseXML(xml, term) {
     returnArray.push(node);
   }
   return returnArray;
-}
-
-function getXMLValue(xml, xpath) {
-  return xml.evaluate(`string(${xpath})`, xml, null, XPathResult.ANY_TYPE, null).stringValue;
 }
 
 function getSelectorValue(element, query) {
