@@ -2,12 +2,12 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
 <sheet>
   <whfrpg4e name="Warhammer Fantasy RPG 4th Edition">
     <meta>
-    <version>0</version>
-    <author></author>
-    <contact></contact>
-    <notes></notes>
-    <released></released>
-    <updated></updated>
+      <version>0</version>
+      <author></author>
+      <contact></contact>
+      <notes></notes>
+      <released></released>
+      <updated></updated>
     </meta>
     <columns>20</columns>
     <section name="basic information">
@@ -19,21 +19,26 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         <format>capitalize</format>
       </label>
       <font>CormorantInfant-Medium.ttf</font>
-      <group name="some_group">
+      <group name="basic information">
         <orientation>row</orientation>
+        <label>
+          <max_chars>16</max_chars>
+          <value></value>
+          <format>capitalize</format>
+        </label>
         <field name="basics_name">
           <values>
             <value></value>
           </values>
           <orientation>column</orientation>
           <type>text</type>
-          <size>40</size>
+          <size>20</size>
           <label>
             <max_chars>16</max_chars>
             <position>last</position>
             <value>name</value>
             <format>capitalize</format>
-            <size>40</size>
+            <size>20</size>
           </label>
         </field>
         <field name="basics_species">
@@ -178,7 +183,7 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           <values>
             <value></value>
           </values>
-          <orientation>column</orientation>
+          <orientation>row</orientation>
           <type>text</type>
           <size>5</size>
           <label>
@@ -200,6 +205,11 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         <format>uppercase</format>
       </label>
       <group>
+      <label>
+      <max_chars>16</max_chars>
+      <value></value>
+      <format>capitalize</format>
+    </label>
         <orientation>row</orientation>
         <field name="ws">
           <values>
@@ -382,6 +392,11 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         <format>capitalize</format>
       </label>
       <group>
+      <label>
+      <max_chars>16</max_chars>
+      <value></value>
+      <format>capitalize</format>
+    </label>
         <orientation>row</orientation>
         <field name="fate">
           <values>
@@ -476,7 +491,6 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         <value>resilience</value>
         <format>capitalize</format>
       </label>
-
     </section>
     <section name="experience">
       <row>2-2</row>
@@ -488,6 +502,11 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
       </label>
       <group>
         <orientation>column</orientation>
+        <label>
+        <max_chars>16</max_chars>
+        <value></value>
+        <format>capitalize</format>
+      </label>
         <field name="current">
           <values>
             <value></value>
@@ -544,6 +563,11 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         </label>
         <group>
           <orientation>row</orientation>
+          <label>
+          <max_chars>16</max_chars>
+          <value></value>
+          <format>capitalize</format>
+        </label>
           <field name="movement">
             <values>
               <value></value>

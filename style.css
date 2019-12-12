@@ -21,7 +21,8 @@ body {
   padding: 0.1rem;
 }
 
-.section>.title, .group>.title{
+.section>.title,
+.group>.title {
   border: 1px solid black;
   text-align: center;
   margin: auto;
@@ -34,7 +35,7 @@ body {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 
 .group {
@@ -115,4 +116,10 @@ input[type=number] {
   bottom: 0;
   width: 100%;
   background-color: lightcoral;
+}
+
+.fake_legend {
+  color: red;
+  width: 100%;
+  text-align: center;
 }

@@ -95,8 +95,6 @@ function loadDataFromFile(data) {
 function doCalculations(data) {
   console.log('Doing calculations.');
   data.calc.forEach(dataField => {
-    console.log(dataField);
-
     let formField;
     try {
       formField = document.getElementsByName(dataField.name)[0];
@@ -163,19 +161,17 @@ function newSection(template) {
 }
 
 function newGroup(template) {
-  let group = document.createElement('fieldset');
-  let title = document.createElement('legend');
-  title.innerHTML = getSelectorValue(template, "label>value");
-  // let group = document.createElement('div');
-  group.style.flexDirection = getSelectorValue(template, "orientation");
-  group.className = 'group';
-  group.appendChild(title);
-  return group;
-}
+  console.log(template);
 
-function saveData() {
-  localStorage.setItem('characterData', JSON.stringify(app.data));
-  alert('Saved!');
+  let group = document.createElement('div');
+  group.className = 'group';
+  group.style.flexDirection = getSelectorValue(template, "orientation");
+  let title = document.createElement('div');
+  title.innerHTML = getSelectorValue(template, "group>label>value");
+  title.className = "fake_legend";
+  group.appendChild(title);
+
+  return group;
 }
 
 function newField(template) {
@@ -183,18 +179,16 @@ function newField(template) {
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
   fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
-
   if (getSelectorValue(template, "label>position") == 'first') {
     fieldGroup.appendChild(newLabel(template));
   }
-
   let qValues = template.querySelectorAll("values>value").length;
   let v = 0;
   template.querySelectorAll("values>value").forEach(value => {
     let field = document.createElement('input');
     if (qValues > 1) {
       field.name = fieldName + v;
-      if (v == qValues - 1) {//last one in the row/column is result
+      if (v == qValues - 1) { //last one in the row/column is result
         field.className = 'result';
         field.disabled = true;
         field.style.pointerEvents = "none";
@@ -205,8 +199,6 @@ function newField(template) {
       field.name = fieldName;
       field.className = 'field';
     }
-
-
     field.style.flexGrow = getSelectorValue(template, "size");
     field.style.width = getSelectorValue(template, "size") + 'vw';
     field.maxLength = getSelectorValue(template, "max_chars");
@@ -229,11 +221,18 @@ function newField(template) {
   return fieldGroup;
 }
 
+function saveData() {
+  localStorage.setItem('characterData', JSON.stringify(app.data));
+  alert('Saved!');
+}
+
+
+
 function newLabel(template) {
   let label = document.createElement('label');
   label.innerHTML = getSelectorValue(template, "label>value");
   label.style.textTransform = getSelectorValue(template, "label>format");
-  label.style.flexGrow = getSelectorValue(template, "label>size");
+  // label.style.flexGrow = getSelectorValue(template, "label>size");
   return label;
 }
 

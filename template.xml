@@ -2,12 +2,12 @@
 <sheet>
   <whfrpg4e name="Warhammer Fantasy RPG 4th Edition">
     <meta>
-    <version>0</version>
-    <author></author>
-    <contact></contact>
-    <notes></notes>
-    <released></released>
-    <updated></updated>
+      <version>0</version>
+      <author></author>
+      <contact></contact>
+      <notes></notes>
+      <released></released>
+      <updated></updated>
     </meta>
     <columns>20</columns>
     <section name="basic information">
@@ -19,21 +19,26 @@
         <format>capitalize</format>
       </label>
       <font>CormorantInfant-Medium.ttf</font>
-      <group name="some_group">
+      <group name="basic information">
         <orientation>row</orientation>
+        <label>
+          <max_chars>16</max_chars>
+          <value></value>
+          <format>capitalize</format>
+        </label>
         <field name="basics_name">
           <values>
             <value></value>
           </values>
           <orientation>column</orientation>
           <type>text</type>
-          <size>40</size>
+          <size>20</size>
           <label>
             <max_chars>16</max_chars>
             <position>last</position>
             <value>name</value>
             <format>capitalize</format>
-            <size>40</size>
+            <size>20</size>
           </label>
         </field>
         <field name="basics_species">
@@ -178,7 +183,7 @@
           <values>
             <value></value>
           </values>
-          <orientation>column</orientation>
+          <orientation>row</orientation>
           <type>text</type>
           <size>5</size>
           <label>
