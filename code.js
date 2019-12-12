@@ -138,15 +138,15 @@ function newSheet(xml) {
     c += vc + 'vw ';
   }
   sheet.style.gridTemplateColumns = c;
+
   return sheet;
 }
 
 function newSection(template) {
   let section = document.createElement('fieldset');
   let title = document.createElement('legend');
-  // section.style.height = getSelectorValue(template, "height") + "rem";
   title.className = 'title';
-  title.title = getSelectorValue(template, "label>value");
+  // title.title = getSelectorValue(template, "label>value");
   title.innerHTML = getSelectorValue(template, "label>value");
   title.style.textTransform = getSelectorValue(template, "label>format");
   section.appendChild(title);
@@ -163,9 +163,13 @@ function newSection(template) {
 }
 
 function newGroup(template) {
-  let group = document.createElement('div');
+  let group = document.createElement('fieldset');
+  let title = document.createElement('legend');
+  title.innerHTML = getSelectorValue(template, "label>value");
+  // let group = document.createElement('div');
   group.style.flexDirection = getSelectorValue(template, "orientation");
   group.className = 'group';
+  group.appendChild(title);
   return group;
 }
 

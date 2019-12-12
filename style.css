@@ -21,7 +21,7 @@ body {
   padding: 0.1rem;
 }
 
-.section>.title {
+.section>.title, .group>.title{
   border: 1px solid black;
   text-align: center;
   margin: auto;

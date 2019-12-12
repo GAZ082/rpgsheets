@@ -414,16 +414,12 @@
           </label>
         </field>
       </group>
-    </section>
-    <section name="resilience">
-      <row>2-2</row>
-      <col>13-15</col>
-      <label>
-        <max_chars>16</max_chars>
-        <value>resilience</value>
-        <format>capitalize</format>
-      </label>
       <group>
+        <label>
+          <max_chars>16</max_chars>
+          <value>resilience</value>
+          <format>capitalize</format>
+        </label>
         <orientation>column</orientation>
         <field name="resilience">
           <values>
@@ -471,6 +467,16 @@
           </label>
         </field>
       </group>
+    </section>
+    <section name="resilience">
+      <row>2-2</row>
+      <col>13-15</col>
+      <label>
+        <max_chars>16</max_chars>
+        <value>resilience</value>
+        <format>capitalize</format>
+      </label>
+
     </section>
     <section name="experience">
       <row>2-2</row>
@@ -528,6 +534,63 @@
           </label>
         </field>
       </group>
+      <section name="movement">
+        <row>3-3</row>
+        <col>11-12</col>
+        <label>
+          <max_chars>16</max_chars>
+          <value>movement</value>
+          <format>capitalize</format>
+        </label>
+        <group>
+          <orientation>row</orientation>
+          <field name="movement">
+            <values>
+              <value></value>
+            </values>
+            <orientation>row</orientation>
+            <type>number</type>
+            <size>5</size>
+            <label>
+              <max_chars>5</max_chars>
+              <position>first</position>
+              <value>movement</value>
+              <format>uppercase</format>
+              <size>5</size>
+            </label>
+          </field>
+          <field name="walk">
+            <values>
+              <value></value>
+            </values>
+            <orientation>row</orientation>
+            <type>number</type>
+            <size>5</size>
+            <label>
+              <max_chars>5</max_chars>
+              <position>first</position>
+              <value>walk</value>
+              <format>uppercase</format>
+              <size>5</size>
+            </label>
+          </field>
+          <field name="run">
+            <values>
+              <value></value>
+            </values>
+            <orientation>row</orientation>
+            <type>number</type>
+            <size>5</size>
+            <label>
+              <max_chars>5</max_chars>
+              <position>first</position>
+              <value>run</value>
+              <format>uppercase</format>
+              <size>5</size>
+            </label>
+          </field>
+        </group>
+      </section>
     </section>
   </whfrpg4e>
 </sheet>
