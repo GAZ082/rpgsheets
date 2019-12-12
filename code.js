@@ -144,6 +144,7 @@ function newSheet(xml) {
 function newSection(template) {
   let section = document.createElement('fieldset');
   let title = document.createElement('legend');
+  // section.style.height = getSelectorValue(template, "height") + "rem";
   title.className = 'title';
   title.title = getSelectorValue(template, "label>value");
   title.innerHTML = getSelectorValue(template, "label>value");
@@ -156,7 +157,8 @@ function newSection(template) {
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
   section.style.gridRowStart = row[0];
-  section.style.gridRowEnd = Number(row[0]) + 1;
+  section.style.gridRowEnd = Number(row[1]) + 1;
+  // section.style.gridRowEnd = Number(row[0]) + 1;
   return section;
 }
 
@@ -188,10 +190,19 @@ function newField(template) {
     let field = document.createElement('input');
     if (qValues > 1) {
       field.name = fieldName + v;
+      if (v == qValues - 1) {//last one in the row/column is result
+        field.className = 'result';
+        field.disabled = true;
+        field.style.pointerEvents = "none";
+      } else {
+        field.className = 'field';
+      }
     } else {
       field.name = fieldName;
+      field.className = 'field';
     }
-    field.className = 'field';
+
+
     field.style.flexGrow = getSelectorValue(template, "size");
     field.style.width = getSelectorValue(template, "size") + 'vw';
     field.maxLength = getSelectorValue(template, "max_chars");

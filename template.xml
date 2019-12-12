@@ -2,16 +2,16 @@
 <sheet>
   <whfrpg4e name="Warhammer Fantasy RPG 4th Edition">
     <meta>
-      <version>0</version>
-      <author></author>
-      <contact></contact>
-      <notes></notes>
-      <released></released>
-      <updated></updated>
+    <version>0</version>
+    <author></author>
+    <contact></contact>
+    <notes></notes>
+    <released></released>
+    <updated></updated>
     </meta>
     <columns>20</columns>
-    <section name="characteristics">
-      <row>1</row>
+    <section name="basic information">
+      <row>1-1</row>
       <col>1-20</col>
       <label>
         <max_chars>16</max_chars>
@@ -35,7 +35,6 @@
             <format>capitalize</format>
             <size>40</size>
           </label>
-
         </field>
         <field name="basics_species">
           <values>
@@ -190,6 +189,18 @@
             <size>5</size>
           </label>
         </field>
+      </group>
+    </section>
+    <section name="characteristics">
+      <row>2-3</row>
+      <col>1-10</col>
+      <label>
+        <max_chars>16</max_chars>
+        <value>characteristics</value>
+        <format>uppercase</format>
+      </label>
+      <group>
+        <orientation>row</orientation>
         <field name="ws">
           <values>
             <value></value>
@@ -197,84 +208,323 @@
             <value>"0:ws0+ws1"</value>
           </values>
           <orientation>column</orientation>
-          <type>text</type>
+          <type>number</type>
           <size>5</size>
           <label>
-            <max_chars>12</max_chars>
-            <position>last</position>
+            <max_chars>5</max_chars>
+            <position>first</position>
             <value>ws</value>
-            <format>capitalize</format>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="bs">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:bs0+bs1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>bs</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="s">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:s0+s1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>s</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="t">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:t0+t1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>t</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="i">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:i0+i1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>i</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="ag">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:ag0+ag1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>ag</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="dex">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:dex0+dex1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>dex</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="int">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:int0+int1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>int</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="wp">
+          <values>
+            <value></value>
+            <value></value>
+            <value>"0:wp0+wp1"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>wp</value>
+            <format>uppercase</format>
             <size>5</size>
           </label>
         </field>
         <field name="fel">
           <values>
             <value></value>
-            <value>"1:fel0+ws2"</value>
+            <value></value>
+            <value>"0:fel0+fel1"</value>
           </values>
           <orientation>column</orientation>
-          <type>text</type>
+          <type>number</type>
           <size>5</size>
           <label>
-            <max_chars>12</max_chars>
-            <position>last</position>
+            <max_chars>5</max_chars>
+            <position>first</position>
             <value>fel</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+      </group>
+    </section>
+    <section name="fate">
+      <row>2-2</row>
+      <col>11-12</col>
+      <label>
+        <max_chars>16</max_chars>
+        <value>fate</value>
+        <format>capitalize</format>
+      </label>
+      <group>
+        <orientation>row</orientation>
+        <field name="fate">
+          <values>
+            <value></value>
+          </values>
+          <orientation>row</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>fate</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="fortune">
+          <values>
+            <value></value>
+          </values>
+          <orientation>row</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>fortune</value>
+            <format>uppercase</format>
+            <size>5</size>
+          </label>
+        </field>
+      </group>
+    </section>
+    <section name="resilience">
+      <row>2-2</row>
+      <col>13-15</col>
+      <label>
+        <max_chars>16</max_chars>
+        <value>resilience</value>
+        <format>capitalize</format>
+      </label>
+      <group>
+        <orientation>column</orientation>
+        <field name="resilience">
+          <values>
+            <value></value>
+          </values>
+          <orientation>row</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>resilience</value>
+            <format>capitalize</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="resolve">
+          <values>
+            <value></value>
+          </values>
+          <orientation>row</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>resolve</value>
+            <format>capitalize</format>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="motivation">
+          <values>
+            <value></value>
+          </values>
+          <orientation>row</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>motivation</value>
             <format>capitalize</format>
             <size>5</size>
           </label>
         </field>
       </group>
     </section>
-    <section name="second section">
-      <row>2</row>
-      <col>1-10</col>
+    <section name="experience">
+      <row>2-2</row>
+      <col>16-20</col>
       <label>
         <max_chars>16</max_chars>
-        <value>second section</value>
+        <value>experience</value>
         <format>capitalize</format>
       </label>
-      <group name="group of second section">
-        <orientation>row</orientation>
-        <field name="sample">
+      <group>
+        <orientation>column</orientation>
+        <field name="current">
           <values>
             <value></value>
           </values>
           <orientation>column</orientation>
-          <type>text</type>
-          <size>40</size>
+          <type>number</type>
+          <size>5</size>
           <label>
-            <max_chars>16</max_chars>
-            <position>last</position>
-            <value>sample</value>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>current</value>
             <format>capitalize</format>
-            <size>10</size>
+            <size>5</size>
           </label>
         </field>
-      </group>
-    </section>
-    <section name="third section">
-      <row>2</row>
-      <col>11-20</col>
-      <label>
-        <max_chars>16</max_chars>
-        <value>third section</value>
-        <format>capitalize</format>
-      </label>
-      <group name="group of third section">
-        <orientation>row</orientation>
-        <field name="sample 2">
+        <field name="spent">
           <values>
             <value></value>
           </values>
           <orientation>column</orientation>
-          <type>text</type>
-          <size>40</size>
+          <type>number</type>
+          <size>5</size>
           <label>
-            <max_chars>16</max_chars>
-            <position>last</position>
-            <value>sample 2</value>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>spent</value>
             <format>capitalize</format>
-            <size>10</size>
+            <size>5</size>
+          </label>
+        </field>
+        <field name="total">
+          <values>
+            <value>"0:current-spent"</value>
+          </values>
+          <orientation>column</orientation>
+          <type>number</type>
+          <size>5</size>
+          <label>
+            <max_chars>5</max_chars>
+            <position>first</position>
+            <value>total</value>
+            <format>capitalize</format>
+            <size>5</size>
           </label>
         </field>
       </group>
