@@ -21,8 +21,7 @@ body {
   padding: 0.1rem;
 }
 
-.section>.title,
-.group>.title {
+.section>.title {
   border: 1px solid black;
   text-align: center;
   margin: auto;
@@ -31,19 +30,27 @@ body {
   border-radius: 0.2rem;
 }
 
+.group>.title {
+  text-align: center;
+  margin: auto;
+  font-weight: bold;
+  color: white;
+  border-radius: 0.2rem;
+  background-color: black;
+  width: 100%;
+}
+
 .fieldGroup {
   display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  /* flex-direction: column; */
+  flex-wrap: row;
+  /* align-items: center; */
 }
 
 .group {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
   justify-content: space-evenly;
-
 }
 
 input {
@@ -57,7 +64,6 @@ input:disabled {
   background: none;
   color: black;
 }
-
 
 label {
   text-align: center;

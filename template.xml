@@ -2,12 +2,12 @@
 <sheet>
   <whfrpg4e name="Warhammer Fantasy RPG 4th Edition">
     <meta>
-      <version>0</version>
-      <author></author>
-      <contact></contact>
-      <notes></notes>
-      <released></released>
-      <updated></updated>
+    <version>0</version>
+    <author></author>
+    <contact></contact>
+    <notes></notes>
+    <released></released>
+    <updated></updated>
     </meta>
     <columns>20</columns>
     <section name="basic information">
@@ -55,7 +55,6 @@
             <format>capitalize</format>
             <size>20</size>
           </label>
-
         </field>
         <field name="basics_class">
           <values>
@@ -205,6 +204,11 @@
         <format>uppercase</format>
       </label>
       <group>
+        <label>
+          <max_chars>16</max_chars>
+          <value></value>
+          <format>capitalize</format>
+        </label>
         <orientation>row</orientation>
         <field name="ws">
           <values>
@@ -387,6 +391,11 @@
         <format>capitalize</format>
       </label>
       <group>
+        <label>
+          <max_chars>16</max_chars>
+          <value></value>
+          <format>capitalize</format>
+        </label>
         <orientation>row</orientation>
         <field name="fate">
           <values>
@@ -473,16 +482,6 @@
         </field>
       </group>
     </section>
-    <section name="resilience">
-      <row>2-2</row>
-      <col>13-15</col>
-      <label>
-        <max_chars>16</max_chars>
-        <value>resilience</value>
-        <format>capitalize</format>
-      </label>
-
-    </section>
     <section name="experience">
       <row>2-2</row>
       <col>16-20</col>
@@ -493,6 +492,11 @@
       </label>
       <group>
         <orientation>column</orientation>
+        <label>
+          <max_chars>16</max_chars>
+          <value></value>
+          <format>capitalize</format>
+        </label>
         <field name="current">
           <values>
             <value></value>
@@ -549,6 +553,11 @@
         </label>
         <group>
           <orientation>row</orientation>
+          <label>
+            <max_chars>16</max_chars>
+            <value></value>
+            <format>capitalize</format>
+          </label>
           <field name="movement">
             <values>
               <value></value>

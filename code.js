@@ -162,13 +162,12 @@ function newSection(template) {
 
 function newGroup(template) {
   console.log(template);
-
   let group = document.createElement('div');
   group.className = 'group';
   group.style.flexDirection = getSelectorValue(template, "orientation");
   let title = document.createElement('div');
+  title.className = "title";
   title.innerHTML = getSelectorValue(template, "group>label>value");
-  title.className = "fake_legend";
   group.appendChild(title);
 
   return group;
@@ -199,8 +198,8 @@ function newField(template) {
       field.name = fieldName;
       field.className = 'field';
     }
+    // field.style.width = getSelectorValue(template, "size") + 'vw';
     field.style.flexGrow = getSelectorValue(template, "size");
-    field.style.width = getSelectorValue(template, "size") + 'vw';
     field.maxLength = getSelectorValue(template, "max_chars");
     field.onchange = () => {
       if (value.innerHTML != null) {
@@ -232,7 +231,9 @@ function newLabel(template) {
   let label = document.createElement('label');
   label.innerHTML = getSelectorValue(template, "label>value");
   label.style.textTransform = getSelectorValue(template, "label>format");
-  // label.style.flexGrow = getSelectorValue(template, "label>size");
+  // label.style.width = getSelectorValue(template, "label>size") + "%"
+  label.style.flexGrow = getSelectorValue(template, "label>size");
+  // field.style.flexGrow = getSelectorValue(template, "size");
   return label;
 }
 

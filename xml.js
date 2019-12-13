@@ -55,7 +55,6 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
             <format>capitalize</format>
             <size>20</size>
           </label>
-
         </field>
         <field name="basics_class">
           <values>
@@ -482,15 +481,6 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
           </label>
         </field>
       </group>
-    </section>
-    <section name="resilience">
-      <row>2-2</row>
-      <col>13-15</col>
-      <label>
-        <max_chars>16</max_chars>
-        <value>resilience</value>
-        <format>capitalize</format>
-      </label>
     </section>
     <section name="experience">
       <row>2-2</row>
