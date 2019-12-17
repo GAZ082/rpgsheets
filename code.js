@@ -14,7 +14,7 @@ async function init() {
   // localStorage.setItem('templateData', JSON.stringify(templates.whfrpg4e));
   // localStorage.setItem('templateData', JSON.stringify(json));
   // app.template = JSON.parse(localStorage.getItem('templateData'));
-  let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
+  let xml = new DOMParser().parseFromString(xmltemplate, 'text/xml');
   cacheData(xml, app);
   loadForm(xml).then(loadDataFromFile(app.data));
   doCalculations(app);
@@ -23,18 +23,19 @@ async function init() {
 function cacheData(xml, app) {
   let data = {};
   let calc = [];
-  xml.querySelectorAll("section").forEach(section => {
-    section.querySelectorAll("group").forEach(group => {
-      group.querySelectorAll("field").forEach(field => {
-        field.querySelectorAll("values").forEach(values => {
-          let fieldName = field.getAttribute("name")
-          let qValue = values.getElementsByTagName("value").length
+  xml.querySelectorAll('section').forEach(section => {
+    section.querySelectorAll('group').forEach(group => {
+      group.querySelectorAll('field').forEach(field => {
+        field.querySelectorAll('values').forEach(values => {
+          let fieldName = field.getAttribute('name');
+          let qValue = values.getElementsByTagName('value').length;
           if (qValue == 1) {
             data[fieldName] = characterData['sheet'][fieldName];
           } else {
             let f = 0;
-            values.querySelectorAll("value").forEach(value => {
-              if (characterData['sheet'][fieldName][f] == null) { //formula
+            values.querySelectorAll('value').forEach(value => {
+              if (characterData['sheet'][fieldName][f] == null) {
+                //formula
                 calc.push({
                   name: fieldName + f,
                   formula: value.innerHTML.match(/[^":]+[a-z0-9]+[^"]/gi)[0],
@@ -43,9 +44,9 @@ function cacheData(xml, app) {
               } else {
                 data[fieldName + f] = characterData['sheet'][fieldName][f];
               }
-              f++
+              f++;
             });
-          };
+          }
         });
       });
     });
@@ -56,22 +57,21 @@ function cacheData(xml, app) {
   console.log(app);
 }
 
-
 function loadForm(xml) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     resolve(generateForm(xml));
   });
-};
+}
 
 function generateForm(xml) {
   let root = newSheet(xml);
-  xml.querySelectorAll("section").forEach(section => {
-    let nSection = newSection(section)
-    section.querySelectorAll("group").forEach(group => {
-      let nGroup = newGroup(group)
-      group.querySelectorAll("field").forEach(field => {
+  xml.querySelectorAll('section').forEach(section => {
+    let nSection = newSection(section);
+    section.querySelectorAll('group').forEach(group => {
+      let nGroup = newGroup(group);
+      group.querySelectorAll('field').forEach(field => {
         let nField = newField(field);
-        nField.flexDirection = group.querySelector("orientation").innerHTML;;
+        nField.flexDirection = group.querySelector('orientation').innerHTML;
         nGroup.appendChild(nField);
       });
       nSection.appendChild(nGroup);
@@ -114,8 +114,6 @@ function doSingleCalc(field, data) {
       } else {
         sum += data[element];
       }
-
-
     });
     return sum;
   } else {
@@ -130,7 +128,7 @@ function doSingleCalc(field, data) {
 function newSheet(xml) {
   let sheet = document.getElementById('character');
   let c = '';
-  let columns = xml.querySelectorAll("sheet>columns");
+  let columns = xml.querySelectorAll('sheet>columns');
   let vc = 100 / columns;
   for (let i = 0; i < columns; i++) {
     c += vc + 'vw ';
@@ -145,12 +143,12 @@ function newSection(template) {
   let title = document.createElement('legend');
   title.className = 'title';
   // title.title = getSelectorValue(template, "label>value");
-  title.innerHTML = getSelectorValue(template, "label>value");
-  title.style.textTransform = getSelectorValue(template, "label>format");
+  title.innerHTML = getSelectorValue(template, 'label>value');
+  title.style.textTransform = getSelectorValue(template, 'label>format');
   section.appendChild(title);
-  let row = getSelectorValue(template, "row").split('-');
-  let col = getSelectorValue(template, "col").split('-');
-  section.title = getSelectorValue(template, "label>value");
+  let row = getSelectorValue(template, 'row').split('-');
+  let col = getSelectorValue(template, 'col').split('-');
+  section.title = getSelectorValue(template, 'label>value');
   section.className = 'section';
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
@@ -164,33 +162,34 @@ function newGroup(template) {
   console.log(template);
   let group = document.createElement('div');
   group.className = 'group';
-  group.style.flexDirection = getSelectorValue(template, "orientation");
+  group.style.flexDirection = getSelectorValue(template, 'orientation');
   let title = document.createElement('div');
-  title.className = "title";
-  title.innerHTML = getSelectorValue(template, "group>label>value");
+  title.className = 'title';
+  title.innerHTML = getSelectorValue(template, 'group>label>value');
   group.appendChild(title);
 
   return group;
 }
 
 function newField(template) {
-  let fieldName = template.getAttribute("name");
+  let fieldName = template.getAttribute('name');
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
-  fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
-  if (getSelectorValue(template, "label>position") == 'first') {
+  fieldGroup.style.flexDirection = getSelectorValue(template, 'orientation');
+  if (getSelectorValue(template, 'label>position') == 'first') {
     fieldGroup.appendChild(newLabel(template));
   }
-  let qValues = template.querySelectorAll("values>value").length;
+  let qValues = template.querySelectorAll('values>value').length;
   let v = 0;
-  template.querySelectorAll("values>value").forEach(value => {
+  template.querySelectorAll('values>value').forEach(value => {
     let field = document.createElement('input');
     if (qValues > 1) {
       field.name = fieldName + v;
-      if (v == qValues - 1) { //last one in the row/column is result
+      if (v == qValues - 1) {
+        //last one in the row/column is result
         field.className = 'result';
         field.disabled = true;
-        field.style.pointerEvents = "none";
+        field.style.pointerEvents = 'none';
       } else {
         field.className = 'field';
       }
@@ -198,9 +197,8 @@ function newField(template) {
       field.name = fieldName;
       field.className = 'field';
     }
-    // field.style.width = getSelectorValue(template, "size") + 'vw';
-    field.style.flexGrow = getSelectorValue(template, "size");
-    field.maxLength = getSelectorValue(template, "max_chars");
+    field.style.width = getSelectorValue(template, 'size') + 'ch';
+    field.maxLength = getSelectorValue(template, 'max_chars');
     field.onchange = () => {
       if (value.innerHTML != null) {
         app.data[field.name] = Number(
@@ -213,7 +211,7 @@ function newField(template) {
     v++;
   });
 
-  if (getSelectorValue(template, "label>position") == 'last') {
+  if (getSelectorValue(template, 'label>position') == 'last') {
     fieldGroup.appendChild(newLabel(template));
   }
 
@@ -225,14 +223,12 @@ function saveData() {
   alert('Saved!');
 }
 
-
-
 function newLabel(template) {
   let label = document.createElement('label');
-  label.innerHTML = getSelectorValue(template, "label>value");
-  label.style.textTransform = getSelectorValue(template, "label>format");
-  // label.style.width = getSelectorValue(template, "label>size") + "%"
-  label.style.flexGrow = getSelectorValue(template, "label>size");
+  label.innerHTML = getSelectorValue(template, 'label>value');
+  label.style.textTransform = getSelectorValue(template, 'label>format');
+  label.style.width = getSelectorValue(template, 'label>size') + 'ch';
+  //label.style.flexGrow = getSelectorValue(template, "label>size");
   // field.style.flexGrow = getSelectorValue(template, "size");
   return label;
 }
@@ -255,25 +251,28 @@ function exportToJsonFile(jsonData) {
   // document.body.appendChild(linkElement);
 }
 
-
 function xPathReturn(xml, xpath) {
-  return xml.evaluate(xpath, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-
+  return xml.evaluate(
+    xpath,
+    xml,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null
+  ).singleNodeValue;
 }
 
 function parseXML(xml, term) {
   let nodes = xml.evaluate(term, xml, null, XPathResult.ANY_TYPE, null);
   let node = null;
   let returnArray = [];
-  while (node = nodes.iterateNext()) {
+  while ((node = nodes.iterateNext())) {
     returnArray.push(node);
   }
   return returnArray;
 }
 
 function getSelectorValue(element, query) {
-  return element.querySelector(query).innerHTML
+  return element.querySelector(query).innerHTML;
 }
-
 
 window.onload = init;

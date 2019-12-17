@@ -2,12 +2,12 @@
 <sheet>
   <whfrpg4e name="Warhammer Fantasy RPG 4th Edition">
     <meta>
-    <version>0</version>
-    <author></author>
-    <contact></contact>
-    <notes></notes>
-    <released></released>
-    <updated></updated>
+      <version>0</version>
+      <author></author>
+      <contact></contact>
+      <notes></notes>
+      <released></released>
+      <updated></updated>
     </meta>
     <columns>20</columns>
     <section name="basic information">
@@ -383,8 +383,8 @@
       </group>
     </section>
     <section name="fate">
-      <row>2-2</row>
-      <col>11-12</col>
+      <row>2-3</row>
+      <col>11-20</col>
       <label>
         <max_chars>16</max_chars>
         <value>fate</value>
@@ -481,130 +481,6 @@
           </label>
         </field>
       </group>
-    </section>
-    <section name="experience">
-      <row>2-2</row>
-      <col>16-20</col>
-      <label>
-        <max_chars>16</max_chars>
-        <value>experience</value>
-        <format>capitalize</format>
-      </label>
-      <group>
-        <orientation>column</orientation>
-        <label>
-          <max_chars>16</max_chars>
-          <value></value>
-          <format>capitalize</format>
-        </label>
-        <field name="current">
-          <values>
-            <value></value>
-          </values>
-          <orientation>column</orientation>
-          <type>number</type>
-          <size>5</size>
-          <label>
-            <max_chars>5</max_chars>
-            <position>first</position>
-            <value>current</value>
-            <format>capitalize</format>
-            <size>5</size>
-          </label>
-        </field>
-        <field name="spent">
-          <values>
-            <value></value>
-          </values>
-          <orientation>column</orientation>
-          <type>number</type>
-          <size>5</size>
-          <label>
-            <max_chars>5</max_chars>
-            <position>first</position>
-            <value>spent</value>
-            <format>capitalize</format>
-            <size>5</size>
-          </label>
-        </field>
-        <field name="total">
-          <values>
-            <value>"0:current-spent"</value>
-          </values>
-          <orientation>column</orientation>
-          <type>number</type>
-          <size>5</size>
-          <label>
-            <max_chars>5</max_chars>
-            <position>first</position>
-            <value>total</value>
-            <format>capitalize</format>
-            <size>5</size>
-          </label>
-        </field>
-      </group>
-      <section name="movement">
-        <row>3-3</row>
-        <col>11-12</col>
-        <label>
-          <max_chars>16</max_chars>
-          <value>movement</value>
-          <format>capitalize</format>
-        </label>
-        <group>
-          <orientation>row</orientation>
-          <label>
-            <max_chars>16</max_chars>
-            <value></value>
-            <format>capitalize</format>
-          </label>
-          <field name="movement">
-            <values>
-              <value></value>
-            </values>
-            <orientation>row</orientation>
-            <type>number</type>
-            <size>5</size>
-            <label>
-              <max_chars>5</max_chars>
-              <position>first</position>
-              <value>movement</value>
-              <format>uppercase</format>
-              <size>5</size>
-            </label>
-          </field>
-          <field name="walk">
-            <values>
-              <value></value>
-            </values>
-            <orientation>row</orientation>
-            <type>number</type>
-            <size>5</size>
-            <label>
-              <max_chars>5</max_chars>
-              <position>first</position>
-              <value>walk</value>
-              <format>uppercase</format>
-              <size>5</size>
-            </label>
-          </field>
-          <field name="run">
-            <values>
-              <value></value>
-            </values>
-            <orientation>row</orientation>
-            <type>number</type>
-            <size>5</size>
-            <label>
-              <max_chars>5</max_chars>
-              <position>first</position>
-              <value>run</value>
-              <format>uppercase</format>
-              <size>5</size>
-            </label>
-          </field>
-        </group>
-      </section>
     </section>
   </whfrpg4e>
 </sheet>
