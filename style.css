@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,600&display=swap');
+
+
 html {
   font-size: 16px;
+  background-color: black;
 }
 
 body {
   margin: 0;
   padding: 0;
+  color:white;
+  font-family: "Oswald";
 }
 
 #character {
@@ -15,18 +21,18 @@ body {
 
 
 .section {
-  border: 1px solid black;
+  border: 1px solid white;
   margin: 0.2rem;
   border-radius: 0.2rem;
   padding: 0.1rem;
 }
 
 .section>.title {
-  border: 1px solid black;
+  border: 1px solid white;
   text-align: center;
   margin: auto;
   font-weight: bold;
-  color: red;
+  color: white;
   border-radius: 0.2rem;
 }
 
@@ -50,11 +56,13 @@ input {
   font-size: 1rem;
   text-align: center;
   border-bottom: 1px dashed lightgray;
+  background-color: transparent;
+  color:white;
 }
 
 input:disabled {
   background: none;
-  color: black;
+  color: white;
 }
 
 

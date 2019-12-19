@@ -205,7 +205,7 @@ function newField(template) {
 
     field.style.flexGrow = getSelectorValue(template, "size");
     field.style.width = getSelectorValue(template, "size") + 'vw';
-    field.maxLength = getSelectorValue(template, "max_chars");
+    field.maxLength = getSelectorValue(template, "size");
     field.onchange = () => {
       if (value.innerHTML != null) {
         app.data[field.name] = Number(

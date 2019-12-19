@@ -1,4 +1,4 @@
-let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <sheet name="Mothership">
   <meta>
   <version>0</version>
@@ -135,4 +135,4 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
       </field>
     </group>
   </section>
-</sheet>`;
+</sheet>
