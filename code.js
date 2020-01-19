@@ -15,7 +15,7 @@ async function init() {
   // localStorage.setItem('templateData', JSON.stringify(json));
   // app.template = JSON.parse(localStorage.getItem('templateData'));
   let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
-  cacheData(xml, app);
+  // cacheData(xml, app);
   loadForm(xml).then(loadDataFromFile(app.data));
   doCalculations(app);
 }
@@ -64,12 +64,14 @@ function loadForm(xml) {
 };
 
 function generateForm(xml) {
+
   let root = newSheet(xml);
   xml.querySelectorAll("section").forEach(section => {
     let nSection = newSection(section)
     section.querySelectorAll("group").forEach(group => {
       let nGroup = newGroup(group)
       group.querySelectorAll("field").forEach(field => {
+
         let nField = newField(field);
         nField.flexDirection = group.querySelector("orientation").innerHTML;;
         nGroup.appendChild(nField);
@@ -94,9 +96,9 @@ function loadDataFromFile(data) {
 
 function doCalculations(data) {
   console.log('Doing calculations.');
+
   data.calc.forEach(dataField => {
     console.log(dataField);
-
     let formField;
     try {
       formField = document.getElementsByName(dataField.name)[0];
@@ -132,7 +134,7 @@ function doSingleCalc(field, data) {
 function newSheet(xml) {
   let sheet = document.getElementById('character');
   let c = '';
-  let columns = xml.querySelectorAll("sheet>columns");
+  let columns = xml.querySelectorAll("sheet>configuration>columns");
   let vc = 100 / columns;
   for (let i = 0; i < columns; i++) {
     c += vc + 'vw ';
@@ -177,17 +179,25 @@ function saveData() {
 function newField(template) {
   let fieldName = template.getAttribute("name");
   let fieldGroup = document.createElement('div');
+  let type = getSelectorValue(template, "type");
+  console.log(type);
   fieldGroup.className = 'fieldGroup';
   fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
-
+  // fieldGroup.style.flexGrow = getSelectorValue(template, "size");
+  fieldGroup.style.flexGrow = getSelectorValue(template, "size");
   if (getSelectorValue(template, "label>position") == 'first') {
     fieldGroup.appendChild(newLabel(template));
   }
-
   let qValues = template.querySelectorAll("values>value").length;
   let v = 0;
   template.querySelectorAll("values>value").forEach(value => {
-    let field = document.createElement('input');
+    let field;
+    if (type == "combo") {
+      field = document.createElement('img');
+    } else {
+      field = document.createElement('input');
+    }
+
     if (qValues > 1) {
       field.name = fieldName + v;
       if (v == qValues - 1) {//last one in the row/column is result
@@ -201,11 +211,9 @@ function newField(template) {
       field.name = fieldName;
       field.className = 'field';
     }
-
-
-    field.style.flexGrow = getSelectorValue(template, "size");
-    field.style.width = getSelectorValue(template, "size") + 'vw';
-    field.maxLength = getSelectorValue(template, "size");
+    //  field.style.width = getSelectorValue(template, "size") + 'vw';
+    field.style.width = "100%";
+    field.maxLength = getSelectorValue(template, "max_chars");
     field.onchange = () => {
       if (value.innerHTML != null) {
         app.data[field.name] = Number(
@@ -229,9 +237,22 @@ function newLabel(template) {
   let label = document.createElement('label');
   label.innerHTML = getSelectorValue(template, "label>value");
   label.style.textTransform = getSelectorValue(template, "label>format");
-  label.style.flexGrow = getSelectorValue(template, "label>size");
+  // label.style.flexGrow = getSelectorValue(template, "label>size");
+  label.style.width = "100%"
   return label;
 }
+function newCombo(template) {
+  let combo = document.createElement('select');
+  template.querySelectorAll("values>class").forEach(section => {
+    let nOption = document.createElement("option");
+    nOption.value = section.getAttribute("name");
+    nOption.innerHTML = section.getAttribute("name");
+    combo.appendChild(nOption);
+  });
+  combo.style.width = "100%"
+  return combo;
+}
+
 
 function newLabelResult(value) {
   let label = document.createElement('label');
