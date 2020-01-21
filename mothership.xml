@@ -14,6 +14,10 @@
     <color_back>"black"</color_back>
     <columns>20</columns>
   </configuration>
+  <modificators>
+    <mod_strength>5</mod_strength>
+    <mod_speed>5</mod_speed>
+  </modificators>
   <section name="basic information">
     <row>1-1</row>
     <col>1-20</col>
@@ -84,25 +88,10 @@
       </field>
       <field name='class'>
         <values>
-          <class name="teamster">
-            <item name="mod_speed">5</item>
-            <item name="mod_strength">5</item>
-          </class>
-          <class name="android">
-            <item name="">5</item>
-            <item name="">5</item>
-            <item name="">5</item>
-          </class>
-          <class name="scientist">
-            <item name="">5</item>
-            <item name="">5</item>
-            <item name="">5</item>
-          </class>
-          <class name="marine">
-            <item name="">5</item>
-            <item name="">5</item>
-            <item name="">5</item>
-          </class>
+          <value>"marine"</value>
+          <value>"teamster"</value>
+          <value>"android"</value>
+          <value>"scientist"</value>
         </values>
         <orientation>column</orientation>
         <type>combo</type>
@@ -194,7 +183,7 @@
       <orientation>column</orientation>
       <field name='strength'>
         <values>
-          <value>0:strength+mod_strength</value>
+          <value></value>
         </values>
         <orientation>column</orientation>
         <type>number</type>
@@ -208,7 +197,6 @@
       </field>
       <field name='speed'>
         <values>
-          <value>1:speed+mod_speed</value>
           <value></value>
         </values>
         <orientation>column</orientation>

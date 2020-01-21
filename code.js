@@ -3,6 +3,7 @@
 let app = {};
 app.data = [];
 app.calc = [];
+app.mods = {};
 
 async function init() {
   // fetch('http://localhost/templates.js')
@@ -15,7 +16,7 @@ async function init() {
   // localStorage.setItem('templateData', JSON.stringify(json));
   // app.template = JSON.parse(localStorage.getItem('templateData'));
   let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
-  // cacheData(xml, app);
+  cacheData(xml, app);
   loadForm(xml).then(loadDataFromFile(app.data));
   doCalculations(app);
 }
@@ -23,47 +24,55 @@ async function init() {
 function cacheData(xml, app) {
   let data = {};
   let calc = [];
+  let mods = {};
+  xml.querySelectorAll("modificators>value").forEach(mod => {
+    mods[mod.getAttribute("name")] = mod.innerHTML;
+  });
+
   xml.querySelectorAll("section").forEach(section => {
     section.querySelectorAll("group").forEach(group => {
       group.querySelectorAll("field").forEach(field => {
-        field.querySelectorAll("values").forEach(values => {
-          let fieldName = field.getAttribute("name")
-          let qValue = values.getElementsByTagName("value").length
-          if (qValue == 1) {
-            data[fieldName] = characterData['sheet'][fieldName];
-          } else {
-            let f = 0;
-            values.querySelectorAll("value").forEach(value => {
-              console.log(value);
-
-              if (characterData['sheet'][fieldName][f] == null) { //formula
-                calc.push({
-                  name: fieldName + f,
-                  formula: value.innerHTML.match(/[^":]+[a-z0-9]+[^"]/gi)[0],
-                  order: Number(value.innerHTML.match(/[0-9]+/)[0])
-                });
-              } else {
-                data[fieldName + f] = characterData['sheet'][fieldName][f];
-              }
-              f++
-            });
-          };
+        let fieldType = getSelectorValue(field, "type");
+        field.querySelectorAll("values").forEach(value => {
+          if (fieldType != "combo") {
+            console.log(field.getAttribute("name"));
+            let fieldName = field.getAttribute("name")
+            let qValue = value.getElementsByTagName("value").length
+            if (qValue == 1) {
+              data[fieldName] = characterData['sheet'][fieldName];
+            } else {
+              let f = 0;
+              value.querySelectorAll("value").forEach(value => {
+                if (characterData['sheet'][fieldName][f] == null) { //formula
+                  calc.push({
+                    name: fieldName + f,
+                    formula: value.innerHTML.match(/[^":]+[a-z0-9]+[^"]/gi)[0],
+                    order: Number(value.innerHTML.match(/[0-9]+/)[0])
+                  });
+                } else {
+                  data[fieldName + f] = characterData['sheet'][fieldName][f];
+                }
+                f++
+              });
+            };
+          }
         });
+
       });
     });
   });
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
+  app.calc = calc;
   console.log(app);
 }
-
 
 function loadForm(xml) {
   return new Promise(function (resolve, reject) {
     resolve(generateForm(xml));
   });
-};
+}
 
 function generateForm(xml) {
 
@@ -106,7 +115,6 @@ function loadDataFromFile(data) {
 function doCalculations(data) {
   console.log('Doing calculations.');
   console.log(data.calc);
-
   data.calc.forEach(dataField => {
     console.log(dataField);
     let formField;
@@ -241,6 +249,7 @@ function newLabel(template) {
   label.style.width = "100%"
   return label;
 }
+
 function newCombo(template) {
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
@@ -263,18 +272,18 @@ function newCombo(template) {
   }
   combo.style.width = "100%"
   combo.onchange = () => {
-    if (combo.innerHTML != null) {
+    if (combo.innerHTML != "marine") {
       // app.data[field.name] = Number(
       //   document.getElementsByName(field.name)[0].value
       // );
       // doCalculations(app);
-      console.log("cambio");
+      refreshData();
+
 
     }
   };
   return fieldGroup;
 }
-
 
 function newLabelResult(value) {
   let label = document.createElement('label');
@@ -294,7 +303,6 @@ function exportToJsonFile(jsonData) {
   // document.body.appendChild(linkElement);
 }
 
-
 function xPathReturn(xml, xpath) {
   return xml.evaluate(xpath, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 
@@ -310,9 +318,14 @@ function parseXML(xml, term) {
   return returnArray;
 }
 
-function getSelectorValue(element, query) {
-  return element.querySelector(query).innerHTML
+function getSelectorValue(element, selector) {
+  return element.querySelector(selector).innerHTML
 }
 
+function refreshData() {
+
+  Object.values(app.data);
+
+}
 
 window.onload = init;
