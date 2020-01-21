@@ -34,6 +34,8 @@ function cacheData(xml, app) {
           } else {
             let f = 0;
             values.querySelectorAll("value").forEach(value => {
+              console.log(value);
+
               if (characterData['sheet'][fieldName][f] == null) { //formula
                 calc.push({
                   name: fieldName + f,
@@ -71,10 +73,17 @@ function generateForm(xml) {
     section.querySelectorAll("group").forEach(group => {
       let nGroup = newGroup(group)
       group.querySelectorAll("field").forEach(field => {
-
-        let nField = newField(field);
-        nField.flexDirection = group.querySelector("orientation").innerHTML;;
-        nGroup.appendChild(nField);
+        let type = getSelectorValue(field, "type");
+        let nField;
+        if (type == "combo") {
+          nField = newCombo(field);
+          nField.flexDirection = group.querySelector("orientation").innerHTML;
+          nGroup.appendChild(nField);
+        } else {
+          nField = newField(field);
+          nField.flexDirection = group.querySelector("orientation").innerHTML;
+          nGroup.appendChild(nField);
+        }
       });
       nSection.appendChild(nGroup);
     });
@@ -96,6 +105,7 @@ function loadDataFromFile(data) {
 
 function doCalculations(data) {
   console.log('Doing calculations.');
+  console.log(data.calc);
 
   data.calc.forEach(dataField => {
     console.log(dataField);
@@ -118,8 +128,6 @@ function doSingleCalc(field, data) {
       } else {
         sum += data[element];
       }
-
-
     });
     return sum;
   } else {
@@ -179,11 +187,8 @@ function saveData() {
 function newField(template) {
   let fieldName = template.getAttribute("name");
   let fieldGroup = document.createElement('div');
-  let type = getSelectorValue(template, "type");
-  console.log(type);
   fieldGroup.className = 'fieldGroup';
   fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
-  // fieldGroup.style.flexGrow = getSelectorValue(template, "size");
   fieldGroup.style.flexGrow = getSelectorValue(template, "size");
   if (getSelectorValue(template, "label>position") == 'first') {
     fieldGroup.appendChild(newLabel(template));
@@ -192,12 +197,7 @@ function newField(template) {
   let v = 0;
   template.querySelectorAll("values>value").forEach(value => {
     let field;
-    if (type == "combo") {
-      field = document.createElement('img');
-    } else {
-      field = document.createElement('input');
-    }
-
+    field = document.createElement('input');
     if (qValues > 1) {
       field.name = fieldName + v;
       if (v == qValues - 1) {//last one in the row/column is result
@@ -242,15 +242,37 @@ function newLabel(template) {
   return label;
 }
 function newCombo(template) {
+  let fieldGroup = document.createElement('div');
+  fieldGroup.className = 'fieldGroup';
+  fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
+  fieldGroup.style.flexGrow = getSelectorValue(template, "size");
   let combo = document.createElement('select');
+  let fieldName = template.getAttribute("name");
+  if (getSelectorValue(template, "label>position") == 'first') {
+    fieldGroup.appendChild(newLabel(template));
+  }
+  fieldGroup.appendChild(combo);
   template.querySelectorAll("values>class").forEach(section => {
     let nOption = document.createElement("option");
     nOption.value = section.getAttribute("name");
     nOption.innerHTML = section.getAttribute("name");
     combo.appendChild(nOption);
   });
+  if (getSelectorValue(template, "label>position") == 'last') {
+    fieldGroup.appendChild(newLabel(template));
+  }
   combo.style.width = "100%"
-  return combo;
+  combo.onchange = () => {
+    if (combo.innerHTML != null) {
+      // app.data[field.name] = Number(
+      //   document.getElementsByName(field.name)[0].value
+      // );
+      // doCalculations(app);
+      console.log("cambio");
+
+    }
+  };
+  return fieldGroup;
 }
 
 

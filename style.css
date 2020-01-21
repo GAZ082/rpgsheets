@@ -1,16 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:400,600&display=swap');
 
+:root{
+  --font-size: 1.4rem;
+  --color-front: snow;
+  --color-back: black;
+}
+
 
 html {
-  font-size: 16px;
-  background-color: black;
+  background-color: var(--color-back);
 }
 
 body {
   margin: 0;
   padding: 0;
-  color:white;
+  color:var(--color-front);
   font-family: "Oswald";
+  font-size: var(--font-size);
+}
+
+input{
+  font-size: var(--font-size);
 }
 
 #character {
@@ -21,7 +31,7 @@ body {
 
 
 .section {
-  border: 1px solid white;
+  border: 0.04rem solid var(--color-front);
   margin: 0.2rem;
   border-radius: 0.2rem;
   padding: 0.1rem;
@@ -29,11 +39,11 @@ body {
 }
 
 .section>.title {
-  border: 1px solid white;
+  border: 0.04rem solid var(--color-front);
   text-align: center;
   margin: auto;
   font-weight: bold;
-  color: white;
+  color: var(--color-front);
   border-radius: 0.2rem;
 }
 
@@ -55,22 +65,21 @@ body {
 
 input {
   border: 0;
-  font-size: 1rem;
   text-align: center;
   border-bottom: 1px dashed lightgray;
   background-color: transparent;
-  color:white;
+  color:var(--color-front);
 }
 
 input:disabled {
   background: none;
-  color: white;
+  color: var(--color-front);
 }
 
 
 label {
   text-align: center;
-  height: 1rem;
+  /* height: var(--font-size); */
 }
 
 .result {
@@ -79,36 +88,8 @@ label {
   height: 1rem;
 }
 
-.field {
-  margin: 0 0.2rem 0 0.2rem;
-}
-
-input[name="name"] {
-  font-size: 1.4rem;
-}
-
-.button {
-  padding: 0.4rem;
-  width: 100%;
-  text-align: center;
-  font-family: sans-serif;
-}
-
-.button:hover {
-  background-color: darkred;
-  color: red;
-}
-
-.button:first-child {
-  border-right: 1px solid darkred;
-}
-
-.button:last-child {
-  border-left: 1px solid darkred;
-}
-
 /* Remove input number spinners */
-input[type=number]::-webkit-inner-spin-button,
+/* input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -116,13 +97,13 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
-}
+}*/
 
-#navBar {
-  display: flex;
-  justify-content: space-evenly;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: lightcoral;
+select{
+  border: 0.02rem dashed var(--color-front);
+  background-color: var(--color-back);
+  color: var(--color-front);
+  font-size: var(--font-size);
+  text-align: center;
+  text-align-last: center;
 }

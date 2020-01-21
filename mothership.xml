@@ -85,9 +85,8 @@
       <field name='class'>
         <values>
           <class name="teamster">
-            <item name="">5</item>
-            <item name="">5</item>
-            <item name="">5</item>
+            <item name="mod_speed">5</item>
+            <item name="mod_strength">5</item>
           </class>
           <class name="android">
             <item name="">5</item>
@@ -195,7 +194,7 @@
       <orientation>column</orientation>
       <field name='strength'>
         <values>
-          <value></value>
+          <value>0:strength+mod_strength</value>
         </values>
         <orientation>column</orientation>
         <type>number</type>
@@ -209,6 +208,7 @@
       </field>
       <field name='speed'>
         <values>
+          <value>1:speed+mod_speed</value>
           <value></value>
         </values>
         <orientation>column</orientation>
