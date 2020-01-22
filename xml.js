@@ -14,10 +14,6 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
     <color_back>"black"</color_back>
     <columns>20</columns>
   </configuration>
-  <modificators>
-    <value name ='strength'>5</value>
-    <value name ='speed'>5</value>
-  </modificators>
   <section name="basic information">
     <row>1-1</row>
     <col>1-20</col>
@@ -87,12 +83,13 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         </label>
       </field>
       <field name='class'>
-        <values>
-          <value>"marine"</value>
-          <value>"teamster"</value>
-          <value>"android"</value>
-          <value>"scientist"</value>
-        </values>
+        <option name="teamster">
+          <mod name="strength">5</mod>
+          <mod name="speed">5</mod>
+        </option>
+        <option name="scientist">
+          <mod name="intellect">10</mod>
+        </option>
         <orientation>column</orientation>
         <type>combo</type>
         <size>1</size>

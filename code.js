@@ -25,17 +25,12 @@ function cacheData(xml, app) {
   let data = {};
   let calc = [];
   let mods = {};
-  xml.querySelectorAll("modificators>value").forEach(mod => {
-    mods[mod.getAttribute("name")] = mod.innerHTML;
-  });
-
   xml.querySelectorAll("section").forEach(section => {
     section.querySelectorAll("group").forEach(group => {
       group.querySelectorAll("field").forEach(field => {
         let fieldType = getSelectorValue(field, "type");
         field.querySelectorAll("values").forEach(value => {
           if (fieldType != "combo") {
-            console.log(field.getAttribute("name"));
             let fieldName = field.getAttribute("name")
             let qValue = value.getElementsByTagName("value").length
             if (qValue == 1) {
@@ -54,17 +49,16 @@ function cacheData(xml, app) {
                 }
                 f++
               });
-            };
+            };///
           }
         });
-
       });
     });
   });
   calc.sort((a, b) => a.order - b.order);
   app.data = data;
   app.calc = calc;
-  app.calc = calc;
+  app.mods = mods;
   console.log(app);
 }
 
@@ -115,6 +109,7 @@ function loadDataFromFile(data) {
 function doCalculations(data) {
   console.log('Doing calculations.');
   console.log(data.calc);
+
   data.calc.forEach(dataField => {
     console.log(dataField);
     let formField;
@@ -123,11 +118,11 @@ function doCalculations(data) {
     } catch (error) {
       console.log('Calculation not found in template: ' + dataField);
     }
-    formField.value = doSingleCalc(dataField.formula, app.data);
+    formField.value = doSingleCalc(dataField.formula, app.data, app.mods);
   });
 }
 
-function doSingleCalc(field, data) {
+function doSingleCalc(field, data, mods) {
   if (field.includes('+')) {
     let sum = 0;
     field.split('+').forEach(element => {
@@ -256,15 +251,14 @@ function newCombo(template) {
   fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
   fieldGroup.style.flexGrow = getSelectorValue(template, "size");
   let combo = document.createElement('select');
-  let fieldName = template.getAttribute("name");
   if (getSelectorValue(template, "label>position") == 'first') {
     fieldGroup.appendChild(newLabel(template));
   }
   fieldGroup.appendChild(combo);
-  template.querySelectorAll("values>class").forEach(section => {
+  template.querySelectorAll("option").forEach(item => {
     let nOption = document.createElement("option");
-    nOption.value = section.getAttribute("name");
-    nOption.innerHTML = section.getAttribute("name");
+    nOption.value = item.getAttribute("name");
+    nOption.innerHTML = item.getAttribute("name");
     combo.appendChild(nOption);
   });
   if (getSelectorValue(template, "label>position") == 'last') {
@@ -272,16 +266,19 @@ function newCombo(template) {
   }
   combo.style.width = "100%"
   combo.onchange = () => {
-    if (combo.innerHTML != "marine") {
-      // app.data[field.name] = Number(
-      //   document.getElementsByName(field.name)[0].value
-      // );
-      // doCalculations(app);
-      refreshData();
-
-
-    }
+    console.log(combo.value);
+    app.mods = {};
+    template.querySelectorAll("option").forEach(item => {
+      if (item.getAttribute("name") == combo.value) {
+        item.querySelectorAll("mod").forEach(item => {
+          app.mods[item.getAttribute("name")] = item.innerHTML;
+        });
+      }
+    });
+    doCalculations(app)
   };
+
+
   return fieldGroup;
 }
 
@@ -324,7 +321,9 @@ function getSelectorValue(element, selector) {
 
 function refreshData() {
 
-  Object.values(app.data);
+  console.log(Object.values(app.data));
+
+
 
 }
 
