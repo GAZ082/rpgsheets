@@ -106,10 +106,21 @@ function loadDataFromFile(data) {
   });
 }
 
+function applyMods(app) {
+  Object.keys(app.mods).forEach(element => {
+    document.querySelectorAll('[name]=' + '"' + element + '"')[0].innerHTML += 2;
+
+  });
+
+  // console.log(Object.keys(app.mods));
+  // console.log(Object.values(app.mods));
+  // document.querySelectorAll('[name]=' + );
+}
+
 function doCalculations(data) {
   console.log('Doing calculations.');
   console.log(data.calc);
-
+  applyMods(app);
   data.calc.forEach(dataField => {
     console.log(dataField);
     let formField;
@@ -232,7 +243,6 @@ function newField(template) {
   if (getSelectorValue(template, "label>position") == 'last') {
     fieldGroup.appendChild(newLabel(template));
   }
-
   return fieldGroup;
 }
 
@@ -272,13 +282,12 @@ function newCombo(template) {
       if (item.getAttribute("name") == combo.value) {
         item.querySelectorAll("mod").forEach(item => {
           app.mods[item.getAttribute("name")] = item.innerHTML;
+          console.log(app.mods);
         });
       }
     });
-    doCalculations(app)
+    doCalculations(app);
   };
-
-
   return fieldGroup;
 }
 
