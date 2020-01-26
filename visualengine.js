@@ -1,146 +1,43 @@
 'use strict';
 
-let app = {};
-app.data = [];
-app.calc = [];
-app.mods = {};
-
-async function init() {
-  // fetch('http://localhost/templates.js')
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     console.log(data)
-  //   })
-  //   .catch(err => console.error(err));
-  // localStorage.setItem('templateData', JSON.stringify(templates.whfrpg4e));
-  // localStorage.setItem('templateData', JSON.stringify(json));
-  // app.template = JSON.parse(localStorage.getItem('templateData'));
-  let xml = (new DOMParser).parseFromString(xmltemplate, 'text/xml');
-  cacheData(xml, app);
-  loadForm(xml).then(loadDataFromFile(app.data));
-  doCalculations(app);
-}
-
-function cacheData(xml, app) {
-  let data = {};
-  let calc = [];
-  let mods = {};
-  xml.querySelectorAll("section").forEach(section => {
-    section.querySelectorAll("group").forEach(group => {
-      group.querySelectorAll("field").forEach(field => {
-        let fieldType = getSelectorValue(field, "type");
-        field.querySelectorAll("values").forEach(value => {
-          if (fieldType != "combo") {
-            let fieldName = field.getAttribute("name")
-            let qValue = value.getElementsByTagName("value").length
-            if (qValue == 1) {
-              data[fieldName] = characterData['sheet'][fieldName];
-            } else {
-              let f = 0;
-              value.querySelectorAll("value").forEach(value => {
-                if (characterData['sheet'][fieldName][f] == null) { //formula
-                  calc.push({
-                    name: fieldName + f,
-                    formula: value.innerHTML.match(/[^":]+[a-z0-9]+[^"]/gi)[0],
-                    order: Number(value.innerHTML.match(/[0-9]+/)[0])
-                  });
-                } else {
-                  data[fieldName + f] = characterData['sheet'][fieldName][f];
-                }
-                f++
-              });
-            };///
-          }
-        });
-      });
-    });
-  });
-  calc.sort((a, b) => a.order - b.order);
-  app.data = data;
-  app.calc = calc;
-  app.mods = mods;
-  console.log(app);
-}
-
-function loadForm(xml) {
+function loadForm(xml, app) {
   return new Promise(function (resolve, reject) {
-    resolve(generateForm(xml));
+    resolve(generateForm(xml, app));
   });
 }
 
-function generateForm(xml) {
-
+function generateForm(xml, app) {
   let root = newSheet(xml);
   xml.querySelectorAll("section").forEach(section => {
-    let nSection = newSection(section)
+    let nSection = newSection(section);
     section.querySelectorAll("group").forEach(group => {
       let nGroup = newGroup(group)
       group.querySelectorAll("field").forEach(field => {
         let type = getSelectorValue(field, "type");
         let nField;
         if (type == "combo") {
-          nField = newCombo(field);
+          nField = newCombo(field, app);
           nField.flexDirection = group.querySelector("orientation").innerHTML;
           nGroup.appendChild(nField);
         } else {
-          nField = newField(field);
+          nField = newField(field, app);
           nField.flexDirection = group.querySelector("orientation").innerHTML;
           nGroup.appendChild(nField);
+          registerField(field, app);
         }
       });
       nSection.appendChild(nGroup);
     });
     root.appendChild(nSection);
   });
-}
-
-function loadDataFromFile(data) {
-  Object.keys(data).forEach(dataField => {
-    let formField;
-    try {
-      formField = document.getElementsByName(dataField)[0];
-    } catch (error) {
-      console.log('Field not found in template: ' + dataField);
-    }
-    formField.value = data[dataField];
+  xml.querySelectorAll("calculations>calc").forEach(calc => {
+    app.calcTemplate[calc.getAttribute("name")] = calc.innerHTML
   });
+  console.log(app);
 }
 
-function doCalculations(data) {
-  console.log('Doing calculations.');
-  console.log(data.calc);
 
-  data.calc.forEach(dataField => {
-    console.log(dataField);
-    let formField;
-    try {
-      formField = document.getElementsByName(dataField.name)[0];
-    } catch (error) {
-      console.log('Calculation not found in template: ' + dataField);
-    }
-    formField.value = doSingleCalc(dataField.formula, app.data, app.mods);
-  });
-}
 
-function doSingleCalc(field, data, mods) {
-  if (field.includes('+')) {
-    let sum = 0;
-    field.split('+').forEach(element => {
-      if (data[element] == null) {
-        sum += Number(document.getElementsByName(element)[0].value);
-      } else {
-        sum += data[element];
-      }
-    });
-    return sum;
-  } else {
-    let mult = 0;
-    field.split('*').forEach(element => {
-      mult *= data[element];
-    });
-    return mult;
-  }
-}
 
 function newSheet(xml) {
   let sheet = document.getElementById('character');
@@ -182,12 +79,7 @@ function newGroup(template) {
   return group;
 }
 
-function saveData() {
-  localStorage.setItem('characterData', JSON.stringify(app.data));
-  alert('Saved!');
-}
-
-function newField(template) {
+function newField(template, app) {
   let fieldName = template.getAttribute("name");
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
@@ -214,7 +106,6 @@ function newField(template) {
       field.name = fieldName;
       field.className = 'field';
     }
-    //  field.style.width = getSelectorValue(template, "size") + 'vw';
     field.style.width = "100%";
     field.maxLength = getSelectorValue(template, "max_chars");
     field.onchange = () => {
@@ -224,6 +115,16 @@ function newField(template) {
         );
         doCalculations(app);
       }
+    };
+    field.onpointerdown = () => {
+      field.value = app.data[fieldName]
+    };
+    field.onpointerup = () => {
+      doCalculations(app);
+    };
+    field.onblur = () => {
+      app.input[fieldName] = field.value;
+      doCalculations(app); //with all the mods and calcs
     };
     fieldGroup.appendChild(field);
     v++;
@@ -240,12 +141,11 @@ function newLabel(template) {
   let label = document.createElement('label');
   label.innerHTML = getSelectorValue(template, "label>value");
   label.style.textTransform = getSelectorValue(template, "label>format");
-  // label.style.flexGrow = getSelectorValue(template, "label>size");
   label.style.width = "100%"
   return label;
 }
 
-function newCombo(template) {
+function newCombo(template, app) {
   let fieldGroup = document.createElement('div');
   fieldGroup.className = 'fieldGroup';
   fieldGroup.style.flexDirection = getSelectorValue(template, "orientation")
@@ -266,19 +166,24 @@ function newCombo(template) {
   }
   combo.style.width = "100%"
   combo.onchange = () => {
-    console.log(combo.value);
-    app.mods = {};
+    Object.keys(app.calc).forEach(element => {//reset all mods
+      if (element.substring(0, 4) == "mod_") {
+        app.calc[element] = 0
+      }
+    });
+
     template.querySelectorAll("option").forEach(item => {
+      console.log(item);
       if (item.getAttribute("name") == combo.value) {
         item.querySelectorAll("mod").forEach(item => {
-          app.mods[item.getAttribute("name")] = item.innerHTML;
+          app.calc["mod_" + item.getAttribute("name")] = Number(item.innerHTML);
         });
       }
     });
     doCalculations(app)
+    console.log(app);
+
   };
-
-
   return fieldGroup;
 }
 
@@ -289,42 +194,17 @@ function newLabelResult(value) {
   return label;
 }
 
-function exportToJsonFile(jsonData) {
-  let dataStr = JSON.stringify(jsonData);
-  let dataUri =
-    'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-  let exportFileDefaultName = jsonData.basics_name + '.json';
-  let linkElement = document.getElementsByName('export')[0];
-  linkElement.setAttribute('href', dataUri);
-  linkElement.setAttribute('download', exportFileDefaultName);
-  // document.body.appendChild(linkElement);
-}
-
-function xPathReturn(xml, xpath) {
-  return xml.evaluate(xpath, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-
-}
-
-function parseXML(xml, term) {
-  let nodes = xml.evaluate(term, xml, null, XPathResult.ANY_TYPE, null);
-  let node = null;
-  let returnArray = [];
-  while (node = nodes.iterateNext()) {
-    returnArray.push(node);
-  }
-  return returnArray;
-}
-
 function getSelectorValue(element, selector) {
   return element.querySelector(selector).innerHTML
 }
 
-function refreshData() {
-
-  console.log(Object.values(app.data));
-
-
+function registerField(field, app) {
+  let fieldName = field.getAttribute("name");
+  app.data[fieldName] = 0;
+  app.input[fieldName] = 0;
+  if (getSelectorValue(field, "type") == "number") {
+    app.calc[fieldName] = 0;
+    app.calc["mod_" + fieldName] = 0;
+  }
 
 }
-
-window.onload = init;

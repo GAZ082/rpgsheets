@@ -14,6 +14,12 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
     <color_back>"black"</color_back>
     <columns>20</columns>
   </configuration>
+  <calculations>
+    <calc name ="strength">strength+mod_strength</calc>
+    <calc name ="speed">speed+mod_speed</calc>
+    <calc name ="intellect">intellect+mod_intellect</calc>
+    <calc name ="combat">combat+mod_combat</calc>
+  </calculations>
   <section name="basic information">
     <row>1-1</row>
     <col>1-20</col>
