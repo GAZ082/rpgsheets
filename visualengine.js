@@ -38,7 +38,6 @@ function generateForm(xml, app) {
 
 
 
-
 function newSheet(xml) {
   let sheet = document.getElementById('character');
   let c = '';
@@ -133,7 +132,6 @@ function newField(template, app) {
   if (getSelectorValue(template, "label>position") == 'last') {
     fieldGroup.appendChild(newLabel(template));
   }
-
   return fieldGroup;
 }
 
