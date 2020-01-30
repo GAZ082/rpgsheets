@@ -107,22 +107,17 @@ function newField(template, app) {
     }
     field.style.width = "100%";
     field.maxLength = getSelectorValue(template, "max_chars");
-    field.onchange = () => {
-      if (value.innerHTML != null) {
-        app.data[field.name] = Number(
-          document.getElementsByName(field.name)[0].value
-        );
-        doCalculations(app);
-      }
-    };
     field.onpointerdown = () => {
+      console.log("Pointer down!");
       field.value = app.data[fieldName]
     };
     field.onpointerup = () => {
-      doCalculations(app);
+      field.value = app.input[fieldName]
+    };
+    field.onchange = () => {
+      app.input[fieldName] = field.value;
     };
     field.onblur = () => {
-      app.input[fieldName] = field.value;
       doCalculations(app); //with all the mods and calcs
     };
     fieldGroup.appendChild(field);

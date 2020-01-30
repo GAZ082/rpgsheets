@@ -6,24 +6,26 @@ function loadDataFromFile(data) {
     try {
       formField = document.getElementsByName(dataField)[0];
     } catch (error) {
-      console.log('Field not found in template: ' + dataField);
     }
     formField.value = data[dataField];
   });
 }
 
 function doCalculations(app) {
-  console.log('Doing calculations.');
-  console.log(app.calcTemplate);
+  console.log("Doing calculations.");
   for (const key of Object.keys(app.calcTemplate)) {
     app.calc[key] = 0;
     app.calcTemplate[key].split("+").forEach(term => {
-      app.calc[key] += app.calc[term]
+      if (app.input[term]) {
+        app.calc[key] += Number(app.input[term])
+      } else if (app.calc[term]) {
+        app.calc[key] += Number(app.calc[term])
+      }
     });
+    console.clear();
+    console.log(key, ": ", app.calc[key]);
   }
   updateValues(app);
-  console.log(app);
-
 }
 
 function doSingleCalc(field, data, mods) {
@@ -63,18 +65,16 @@ function exportToJsonFile(jsonData) {
   // document.body.appendChild(linkElement);
 }
 
-
 function getSelectorValue(element, selector) {
   return element.querySelector(selector).innerHTML
 }
 
 function refreshData() {
-  console.log(Object.values(app.data));
 }
 
 function updateValues(app) {
   Object.keys(app.calc).forEach(key => {
-    if (document.querySelector("[name=" + key + "]")) {
+    if (document.querySelector("[name=" + key + "]") && app.calc[key]) {
       document.querySelector("[name=" + key + "]").value = app.calc[key]
     }
   });
