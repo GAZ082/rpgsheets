@@ -309,4 +309,16 @@ let xmltemplate = `<?xml version="1.0" encoding="UTF-8" ?>
       </field>
     </group>
   </section>
+  <section name='skills'>
+    <row>2-2</row>
+    <col>16-20</col>
+    <label>
+      <value>skills</value>
+      <format>capitalize</format>
+      <button name='add'></button>
+    </label>
+    <group name='g_skills'>
+      <orientation>column</orientation>
+    </group>
+  </section>
 </sheet>`;

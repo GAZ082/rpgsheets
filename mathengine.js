@@ -22,7 +22,6 @@ function doCalculations(app) {
         app.calc[key] += Number(app.calc[term])
       }
     });
-    console.clear();
     console.log(key, ": ", app.calc[key]);
   }
   updateValues(app);

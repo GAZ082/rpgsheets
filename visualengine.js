@@ -62,6 +62,19 @@ function newSection(template) {
   let row = getSelectorValue(template, "row").split('-');
   let col = getSelectorValue(template, "col").split('-');
   section.title = getSelectorValue(template, "label>value");
+
+  if (template.querySelector("label>button")) {
+    let bType = template.querySelector("label>button").getAttribute("name");
+    if (bType == "add") {
+      let nButton = document.createElement('i');
+      nButton.className = 'fa fa-plus';
+      nButton.setAttribute('aria-hidden', 'true');
+      nButton.color = "snow";
+      template.appendChild(nButton)
+      console.log("add");
+    }
+  }
+
   section.className = 'section';
   section.style.gridColumnStart = col[0];
   section.style.gridColumnEnd = Number(col[1]) + 1;
